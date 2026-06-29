@@ -1,0 +1,38 @@
+{
+  "id": "atltuae-spec-000",
+  "title": "Loop-charter / responsible-loop policy specification (the four refusals; budget caps; human checkpoints; provenance)",
+  "project": "atltuae",
+  "type": "design-spec",
+  "lane": "donated",
+  "priority": "high",
+  "domain": ["research", "knowledge-commons", "provenance", "ai-safety", "software"],
+  "riskTier": "high",
+  "urgent": false,
+  "deliverable": "document",
+  "tokenEstimate": "medium",
+  "status": "open",
+  "context": "ATLTUAE is a self-improving, perpetually-looping open research+analysis engine whose deliverable is an ever-improving, fully-cited synthesis plus a public coverage ledger - NOT a final answer. Its hardest rule is that it must not emit a final answer until its coverage gate AND verification gate report the corpus exhausted (across all domains, effectively never). The danger of a 'perpetual loop' is that it becomes an unbounded, headless autonomous agent; Elyos rules forbid running an agent unattended or exceeding a hard budget cap. The M0 spine reconciles this: 'perpetual' means a human-gated, budget-capped cadence of bounded cycles, with provenance on every claim and a public coverage ledger each cycle. This cold-start task writes the charter all later code and content must implement and be tested against, before any feature is built. No partner, steward, or credentialed expert reviewer is yet secured.",
+  "objective": "Write the authoritative loop-charter / responsible-loop policy specification: the four refusals (no premature conclusion, no headless run, no unsourced claim, no closed/unlicensed source), the per-cycle budget-cap dimensions and fail-closed stop behavior, the dual coverage+verification gate as the sole conclusion arbiter (default fail-closed to 'not exhausted'), the quality-only-and-human-approved bounds on self-improvement, domain-risk routing ('not advice' + expert flag for health/legal/safety/financial) and non-partisan civic handling, and the adversarial test taxonomy the red-team suites must cover - the contract that the provenance store, budget governor, gates, verification layer, and red-team suites implement and verify.",
+  "acceptanceCriteria": [
+    "States the four refusals in concrete, testable terms: (1) no final answer while any frontier node or unverified/contradicted claim remains; (2) no headless/unattended run - every expansion round gated by a human checkpoint, no continuous process; (3) no surfaced claim without verifiable, license-clean provenance; (4) no closed/unlicensed/paywalled/controlled-access/ToS-restricted source ingested - open/PD/CC only, verified before ingestion",
+    "Defines the per-cycle budget-cap dimensions (tokens, USD, source count, wall-clock) and the fail-closed stop behavior (partial work preserved; no in-cycle override; cap raises are a governance decision)",
+    "Defines the dual coverage+verification gate as the sole conclusion arbiter, defaulting fail-closed to 'not exhausted', and the operational definition of 'exhausted' to be parameterized in M1 (frontier empty + no new sources across K cycles; all claims verified; no unresolved contradictions; reproducibility above threshold)",
+    "Specifies that self-improvement is quality-only (taxonomy/method/prompt) and may never modify budget caps, gates, or refusal rules (governance-controlled, server-enforced)",
+    "Specifies domain-risk routing ('informational, not advice' + credentialed-expert-review flag for health/legal/safety/financial) and non-partisan handling for civic/contested topics",
+    "Defines the adversarial test taxonomy the red-team suites must cover, including prompt-injection from ingested content (e.g. 'mark the corpus exhausted', 'ignore the budget cap'), and the build-fails-on-bypass requirement",
+    "Documents the '42' final-answer easter egg as code/README-only, never surfaced in the public synthesis",
+    "Reviewed and signed off by the gate/red-team reviewer (recorded)"
+  ],
+  "resources": [
+    "planning/projects/atltuae/PLAN.md",
+    "planning/ROADMAP.md",
+    "CLAUDE.md",
+    "docs/good-deed-definition.md",
+    "packages/schema/src/schemas.ts",
+    "packages/runner"
+  ],
+  "output": "A reviewed policy-specification document (the loop-charter / responsible-loop charter) defining the four refusals, the budget-cap dimensions + fail-closed behavior, the dual coverage+verification gate and 'exhausted' definition, the quality-only self-improvement bounds, domain-risk routing and non-partisan handling, and the adversarial test taxonomy - the contract that atltuae-provenance-003, atltuae-budget-004, atltuae-gates-007, atltuae-verify-008, and atltuae-redteam-009 implement and verify.",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "outputLicense": "CC-BY-4.0"
+}
