@@ -1,12 +1,12 @@
 # ATLTUAE — TASKS.md
 
-> Status: Draft · Version: 0.1.0 · Last updated: 2026-06-28 · Owner: TBD (maintainer) · Lane: donated (funded cycles allowed, with a hard per-cycle cap)
+> Status: Draft · Version: 0.2.0 · Last updated: 2026-06-29 · Owner: TBD (maintainer) · Lane: donated (funded cycles allowed, with a hard per-cycle cap)
 
 Backlog for **ATLTUAE** (slug: `atltuae`), a self-improving, perpetually-looping **open research +
-analysis engine** that broadens coverage across all domains and emits a final answer **only** once
-its coverage gate *and* verification gate report the corpus exhausted (deliberately almost never).
-The deliverable is the **ever-improving, fully-cited open synthesis** plus a **public coverage
-ledger**. See `PLAN.md` for full context.
+analysis engine** that broadens coverage across all domains and maintains a **perpetual living
+synthesis** — releasing/promoting nodes via a **frontier-saturation gate** *and* verification gate
+rather than ever declaring the corpus globally exhausted. The deliverable is the **ever-improving,
+fully-cited open synthesis** plus a **public coverage ledger**. See `PLAN.md` for full context.
 
 The project is built on four refusals that are hard product requirements and CI release gates:
 **no premature conclusion, no headless/unattended run, no unsourced claim, no closed/unlicensed
@@ -55,9 +55,9 @@ domain reviewer for HIGH-tier surfaces (**TO BE SECURED**).
 | atltuae-spec-000 | Loop-charter / responsible-loop policy spec (4 refusals; caps; checkpoints; provenance) | design-spec | medium | high | document | — | Maintainer + Gate reviewer |
 | atltuae-seed-001 | Seed-domain selection (scored vs. criteria; low-risk, source-rich) — gates later cycles | research | small | medium | document | — | Maintainer |
 | atltuae-repo-002 | Monorepo + pnpm + TS/ESM + CI (build/test/lint) skeleton; agent-neutral core + adapters seam | code | small | low | pr | — | Maintainer |
-| atltuae-provenance-003 | Provenance store + "no source, no claim" enforcement (content-addressed; license + verify status) | code | large | high | pr | 002 | Maintainer + Gate reviewer |
-| atltuae-budget-004 | Budget governor: hard per-cycle caps (tokens/USD/sources/wall-clock), fail-closed stop | code | medium | high | pr | 002 | Gate reviewer |
-| atltuae-ledger-005 | Coverage ledger schema + public renderer (taxonomy; covered/partial/missing; non-empty frontier) | code | medium | medium | pr | 002 | Maintainer |
+| atltuae-provenance-003 | Provenance store + "no source, no claim" + sampled faithfulness/entailment gate (content-addressed archived snapshot; license + verify status; Citations spans) | code | large | high | pr | 002 | Maintainer + Gate reviewer |
+| atltuae-budget-004 | Budget governor: hard per-cycle caps (tokens/USD/sources/wall-clock) + aggregate/lifetime ceiling + marginal-coverage-per-dollar tripwire, fail-closed stop | code | medium | high | pr | 002 | Gate reviewer |
+| atltuae-ledger-005 | Coverage ledger schema + public renderer (taxonomy; covered/partial/missing with quality floor; non-empty frontier) | code | medium | medium | pr | 002 | Maintainer |
 | atltuae-loop-006 | Minimal cycle orchestrator (one bounded cycle on seed domain) + mandatory human checkpoint; never headless | code | large | high | pr | 003, 004, 005 | Maintainer + Gate reviewer |
 
 **Acceptance criteria — key tasks**
@@ -68,12 +68,17 @@ domain reviewer for HIGH-tier surfaces (**TO BE SECURED**).
     run** — every expansion round gated by a human checkpoint, no continuous/unattended process; (3)
     **no unsourced claim** — every surfaced claim carries verifiable, license-clean provenance; (4)
     **no closed/unlicensed source** — open/PD/CC only, verified before ingestion.
-  - Defines the per-cycle **budget-cap dimensions** (tokens, USD, source count, wall-clock) and the
-    **fail-closed** stop behavior (partial work preserved; no in-cycle override; cap raises are a
-    governance decision).
-  - Defines the **dual coverage+verification gate** as the sole conclusion arbiter, defaulting
-    fail-closed to "not exhausted," and the operational definition of "exhausted" (to be parameterized
-    in M1).
+  - Defines the per-cycle **budget-cap dimensions** (tokens, USD, source count, wall-clock), the
+    **aggregate/lifetime ceiling + marginal-coverage-per-dollar tripwire**, and the **fail-closed** stop
+    behavior (partial work preserved; no in-cycle override; cap raises are a governance decision).
+  - Defines **faithfulness (entailment) as a first-class gate distinct from citation coverage** — the
+    cited source must actually support the claim (presence ≠ faithfulness).
+  - Defines the **dual frontier-saturation+verification gate** as the sole node-level release/promotion
+    arbiter, defaulting fail-closed to "not yet," and the operational definition of "saturated" (to be
+    parameterized in M1, including the **search-recall / source-diversity floor** that must be cleared
+    before "no new sources" can count); states there is **no global "final answer" door**.
+  - Specifies the **tiered human-checkpoint model** (batched lightweight approval for low-risk breadth;
+    full review for high-risk routing / self-improvement diffs / budget changes).
   - Specifies that **self-improvement is quality-only** (taxonomy/method/prompt) and **may never**
     modify budget caps, gates, or refusals.
   - Specifies **domain-risk routing** ("not advice" + expert flag for health/legal/safety/financial)
@@ -81,20 +86,28 @@ domain reviewer for HIGH-tier surfaces (**TO BE SECURED**).
   - Documents the **"42" easter egg** as code/README-only, never surfaced in the public synthesis.
   - Reviewed and signed off by the gate reviewer (recorded).
 
-- **atltuae-provenance-003** (provenance store + "no source, no claim")
+- **atltuae-provenance-003** (provenance store + "no source, no claim" + faithfulness)
   - Every claim links to ≥ 1 `Source` (identifier/URL, title, **license + verified reuse status**,
-    retrieval date, **content hash**, derivation/query trail) and a verification status.
+    retrieval date, **content/snapshot hash**, **exact source span via Anthropic Citations**,
+    derivation/query trail) and a verification status.
   - The synthesis layer **cannot** surface a claim lacking provenance; a **citation-coverage test**
     fails the build if any surfaced claim is unsourced.
-  - Sources and claims are **content-addressed** so a claim is **re-derivable** (reproducibility
-    foundation); provenance chain is tamper-evident.
+  - A **separate sampled faithfulness/entailment gate** checks that the cited snapshot *actually
+    supports* the claim (presence ≠ faithfulness — the Galactica/ProVe failure); unfaithful claims are
+    withheld/flagged. Faithfulness is reported distinctly from coverage.
+  - Sources and claims are **content-addressed against an archived snapshot** so a claim is
+    **re-derivable even after link rot** (reproducibility foundation); provenance chain is tamper-evident.
 
 - **atltuae-budget-004** (budget governor)
   - Enforces per-cycle caps on tokens, USD, source count, and wall-clock; meters every LLM/fetch call
     against remaining budget and **refuses** the call that would exceed it.
+  - Enforces a **governance-owned aggregate/lifetime budget ceiling** and a **marginal-coverage-per-
+    dollar tripwire** that fires a continue/narrow/mothball decision when new spend stops buying
+    meaningful quality-weighted coverage (cost-driven complement to the 2027 partner rule).
   - On cap trip, the cycle **stops fail-closed** with partial work persisted and a truncation note
     written to the ledger; a **cap-trip test** proves the stop occurs and nothing runs past the cap.
-  - **No in-cycle override path**; raising a cap is a between-cycle, governance-logged human action.
+  - **No in-cycle override path** for the per-cycle cap or the lifetime ceiling; raising either is a
+    between-cycle, governance-logged human action.
 
 - **atltuae-loop-006** (minimal cycle orchestrator + human checkpoint)
   - Runs one bounded cycle (plan → gather → verify → synthesize → ledger → checkpoint) on the seed
@@ -116,40 +129,49 @@ the next cycle (audit log proves it), and **no final answer is emitted**. Monore
 
 | ID | Title | Type | Size | Risk | Deliverable | Depends on | Reviewer |
 |---|---|---|---|---|---|---|---|
-| atltuae-gates-007 | Coverage gate + verification gate (dual "exhausted?"; default fail-closed; sole conclusion arbiter) | code | large | high | pr | 005, 006 | Gate reviewer + Maintainer |
-| atltuae-verify-008 | Adversarial verification layer + contradiction detection + multi-source rule for high-stakes claims | code | large | high | pr | 003, 007 | Gate reviewer |
-| atltuae-redteam-009 | Red-team suite: premature-conclusion / budget-bypass / unsourced-claim / closed-source (CI build-fail) | code | medium | high | pr | 007, 008 | Gate reviewer |
+| atltuae-gates-007 | Frontier-saturation gate + verification gate (dual node-level "release?"; search-recall floor; default fail-closed; sole release arbiter) | code | large | high | pr | 005, 006 | Gate reviewer + Maintainer |
+| atltuae-verify-008 | Adversarial verification + contradiction detection + multi-source rule + source-independence scoring for high-stakes claims | code | large | high | pr | 003, 007 | Gate reviewer |
+| atltuae-redteam-009 | Red-team suite: premature-release / budget-bypass / unsourced-claim / unfaithful-claim / closed-source (CI build-fail) | code | medium | high | pr | 007, 008 | Gate reviewer |
 
 **Acceptance criteria — key tasks**
 
-- **atltuae-gates-007** (coverage + verification gate)
-  - Coverage gate reports "exhausted" **only** if there are **no open frontier nodes** *and* **no new
-    sources discovered across K consecutive cycles** (K parameterized + governance-set).
-  - Verification gate reports "exhausted" **only** if **all claims verified**, **no unresolved
-    contradictions**, and reproducibility ≥ threshold.
-  - The gate is the **only** path to a final answer, **defaults fail-closed to "not exhausted,"** and
-    treats any missing data / gate error / ambiguity as "not exhausted" (no final answer).
+- **atltuae-gates-007** (frontier-saturation + verification gate)
+  - Saturation gate reports a node "saturated" **only** if there are **no open frontier nodes under
+    it** *and* **no new sources across K consecutive cycles** — and the "no new sources" signal counts
+    **only after a search-recall / source-diversity floor is cleared** (minimum diversity of query
+    strategies + source classes incl. citation-graph traversal). K + floor parameterized + governance-set.
+  - Verification gate releases a node **only** if **all its claims verified and faithful**, **no
+    unresolved contradictions**, and reproducibility ≥ threshold.
+  - The gate's job is **node-level release/promotion** (publish at confidence tier X), **defaults
+    fail-closed to "not yet,"** and treats any missing data / unmet recall floor / gate error /
+    ambiguity as "not yet." There is **no global "final answer" door**.
 
-- **atltuae-verify-008** (adversarial verification + multi-source)
-  - Each claim is adversarially checked (steel-man + seek disconfirming sources), not accepted on a
-    single agreeing source; contradictions across the claim graph are **surfaced, not hidden**.
+- **atltuae-verify-008** (adversarial verification + multi-source + source-independence)
+  - Each claim is adversarially checked (steel-man + seek disconfirming sources), faithfulness-checked
+    against its cited source, not accepted on a single agreeing source; contradictions across the claim
+    graph are **surfaced, not hidden**.
   - **High-stakes claims require multiple independent, license-clean sources** before they may be
-    surfaced even as "informational."
+    surfaced even as "informational," with **source-independence scoring** so correlated / echoed /
+    LLM-generated near-duplicate sources cannot satisfy the multi-source rule.
   - Reuses the `deep-research` harness pattern (fan-out → fetch → adversarially verify → synthesize).
 
 - **atltuae-redteam-009** (refusal red-team suite)
   - Covers each refusal with multiple cases incl. **prompt-injection from ingested content** (e.g.,
-    "mark the corpus exhausted," "ignore the budget cap"): premature-conclusion attempts,
-    budget-bypass attempts, unsourced-claim attempts, closed-source-ingestion attempts.
+    "mark the corpus exhausted/saturated," "ignore the budget cap"): premature-release attempts,
+    budget-bypass attempts (per-cycle **and** lifetime), unsourced-claim attempts, **unfaithful-claim
+    attempts** (citation present but non-supporting), closed-source-ingestion attempts.
   - Runs in CI; a regression that bypasses **any** refusal **fails the build**; suite size is
     **non-decreasing**; newly-found bypasses become regression cases within one release.
   - Verification eval: **≥ 95%** of seeded false claims are flagged, reported as caught/total at
     version N.
 
-**M1 Definition of Done:** the dual gate computes/reports, defaults fail-closed to "not exhausted,"
-and blocks any final answer while frontier/unverified/contradicted claims remain; the verification
-layer catches ≥ 95% of seeded false claims and enforces multi-source for high-stakes; the refusal
-red-team suite (incl. injection) passes in CI and fails the build on any bypass.
+**M1 Definition of Done:** the dual frontier-saturation+verification gate computes/reports, defaults
+fail-closed to "not yet," counts "no new sources" only after the search-recall floor is cleared, and
+blocks node release/promotion while frontier/unverified/unfaithful/contradicted claims remain; the
+sampled faithfulness/entailment gate is green (distinct from coverage); the verification layer catches
+≥ 95% of seeded false claims and enforces multi-source + source-independence for high-stakes; the
+refusal red-team suite (incl. injection + unfaithful-claim) passes in CI and fails the build on any
+bypass.
 
 ---
 
@@ -158,7 +180,7 @@ red-team suite (incl. injection) passes in CI and fails the build on any bypass.
 | ID | Title | Type | Size | Risk | Deliverable | Depends on | Reviewer |
 |---|---|---|---|---|---|---|---|
 | atltuae-planner-010 | Expansion planner: select next-cycle breadth + depth targets from coverage gaps, with per-target budget | code | medium | medium | pr | 005, 007 | Maintainer |
-| atltuae-checkpoint-011 | Human-checkpoint workflow (approve/modify/halt) with cycle diff + coverage delta + cost summary | code | medium | high | pr | 006, 010 | Maintainer + Gate reviewer |
+| atltuae-checkpoint-011 | Tiered human-checkpoint workflow (batched low-risk breadth vs. full review for high-risk/self-improve/budget) with cycle diff + coverage delta + cost | code | medium | high | pr | 006, 010 | Maintainer + Gate reviewer |
 | atltuae-improve-012 | Gated self-improvement: engine proposes taxonomy/method/prompt diffs; human-approved; cannot touch budget/gates/refusals | code | large | high | pr | 011 | Gate reviewer + Maintainer |
 
 **Acceptance criteria — key tasks**
@@ -168,10 +190,13 @@ red-team suite (incl. injection) passes in CI and fails the build on any bypass.
     (under-covered nodes) targets, each with an estimated budget that fits within the per-cycle cap.
   - Never proposes concluding; the frontier remains explicit and non-empty.
 
-- **atltuae-checkpoint-011** (human-checkpoint workflow)
+- **atltuae-checkpoint-011** (tiered human-checkpoint workflow)
   - At each checkpoint a human can **approve / modify / halt** the next round; presents a **cycle
     diff, coverage delta, and cost summary** for an informed decision.
-  - No round advances without an explicit human action (no auto-advance); the decision is logged.
+  - **Tiered:** low-risk breadth expansion can be **batch-approved** lightweight; **full human review
+    is required** for high-risk domain routing, self-improvement diffs, and budget/cap changes — so the
+    gate scales to "all domains" without becoming a bottleneck or fatigued rubber stamp.
+  - No round advances without an explicit human action (no auto-advance); the decision + tier is logged.
 
 - **atltuae-improve-012** (gated self-improvement)
   - The engine may propose improvements to **taxonomy, retrieval/verification methods, and prompts**,
@@ -220,7 +245,7 @@ republication; non-partisan handling verified on a civic test set.
 
 | ID | Title | Type | Size | Risk | Deliverable | Depends on | Reviewer |
 |---|---|---|---|---|---|---|---|
-| atltuae-repro-016 | Reproducibility tooling: independent re-run re-derives sampled claims from recorded sources/queries | code | medium | high | pr | 003, 008 | Provenance auditor + Maintainer |
+| atltuae-repro-016 | Reproducibility tooling: independent re-run re-derives sampled claims from archived snapshots; link-rot/decay metric + stale-claim re-verification queue | code | medium | high | pr | 003, 008 | Provenance auditor + Maintainer |
 | atltuae-cost-017 | Public cost-ledger renderer for **funded** cycles (spend vs. cap; 0 over-cap) — funded-lane demo | code | small | medium | pr | 004, 005 | Gate reviewer + Maintainer |
 | atltuae-synthesis-018 | Publish the ever-improving cited synthesis + coverage dashboard (CC-BY) with re-derivation guide | writing | large | high | document | 016, 013 | Maintainer + Expert (HIGH surfaces) |
 
@@ -228,13 +253,17 @@ republication; non-partisan handling verified on a civic test set.
 
 - **atltuae-repro-016** (reproducibility)
   - An **independent re-run** (no access to prior intermediate state) re-derives **≥ 95%** of a random
-    sample of published claims from the recorded sources/queries; misses are investigated/logged.
+    sample of published claims from the recorded **archived snapshots**/queries (judged against the
+    snapshot, not the live web, to survive link rot); misses are investigated/logged.
+  - A **link-rot / source-decay metric** tracks references that have since moved/disappeared and a
+    **stale-claim re-verification queue** schedules re-checking aged claims against fresh snapshots.
   - The re-derivation procedure is documented so external parties can reproduce it.
 
 - **atltuae-cost-017** (public cost ledger — funded demo)
-  - For funded cycles, renders a **public cost ledger**: per-cycle USD spend vs. the hard cap,
-    reconciled against the budget governor; **0 over-cap** cycles; no secrets/credentials in the
-    ledger. (This task is `lane: funded` and carries `fundedBudgetUsd` — see schema rule.)
+  - For funded cycles, renders a **public cost ledger**: per-cycle USD spend vs. the hard cap **and
+    aggregate/lifetime spend vs. the governance ceiling**, reconciled against the budget governor;
+    **0 over-cap** cycles; no secrets/credentials in the ledger. (This task is `lane: funded` and
+    carries `fundedBudgetUsd` — see schema rule.)
 
 - **atltuae-synthesis-018** (public synthesis + dashboard)
   - Publishes the cited synthesis + coverage ledger as **CC-BY-4.0** artifacts with full provenance
@@ -314,11 +343,13 @@ Complete, schema-valid Task JSON for the first M0 task (`atltuae-spec-000`):
   "tokenEstimate": "medium",
   "status": "open",
   "context": "ATLTUAE is a self-improving, perpetually-looping open research+analysis engine whose deliverable is an ever-improving, fully-cited synthesis plus a public coverage ledger - NOT a final answer. Its hardest rule is that it must not emit a final answer until its coverage gate AND verification gate report the corpus exhausted (across all domains, effectively never). The danger of a 'perpetual loop' is that it becomes an unbounded, headless autonomous agent; Elyos rules forbid running an agent unattended or exceeding a hard budget cap. The M0 spine reconciles this: 'perpetual' means a human-gated, budget-capped cadence of bounded cycles, with provenance on every claim and a public coverage ledger each cycle. This cold-start task writes the charter all later code and content must implement and be tested against, before any feature is built. No partner, steward, or credentialed expert reviewer is yet secured.",
-  "objective": "Write the authoritative loop-charter / responsible-loop policy specification: the four refusals (no premature conclusion, no headless run, no unsourced claim, no closed/unlicensed source), the per-cycle budget-cap dimensions and fail-closed stop behavior, the dual coverage+verification gate as the sole conclusion arbiter (default fail-closed to 'not exhausted'), the quality-only-and-human-approved bounds on self-improvement, domain-risk routing ('not advice' + expert flag for health/legal/safety/financial) and non-partisan civic handling, and the adversarial test taxonomy the red-team suites must cover - the contract that the provenance store, budget governor, gates, verification layer, and red-team suites implement and verify.",
+  "objective": "Write the authoritative loop-charter / responsible-loop policy specification: the four refusals (no premature conclusion, no headless run, no unsourced claim, no closed/unlicensed source), the per-cycle budget-cap dimensions + aggregate/lifetime ceiling + marginal-coverage tripwire and fail-closed stop behavior, faithfulness (entailment) as a gate distinct from citation coverage, the dual frontier-saturation+verification gate as the sole node-level release/promotion arbiter (default fail-closed to 'not yet'; no global 'final answer' door), the tiered human-checkpoint model, the quality-only-and-human-approved bounds on self-improvement, domain-risk routing ('not advice' + expert flag for health/legal/safety/financial) and non-partisan civic handling, and the adversarial test taxonomy the red-team suites must cover - the contract that the provenance store, budget governor, gates, verification layer, and red-team suites implement and verify.",
   "acceptanceCriteria": [
     "States the four refusals in concrete, testable terms: (1) no final answer while any frontier node or unverified/contradicted claim remains; (2) no headless/unattended run - every expansion round gated by a human checkpoint, no continuous process; (3) no surfaced claim without verifiable, license-clean provenance; (4) no closed/unlicensed/paywalled/controlled-access/ToS-restricted source ingested - open/PD/CC only, verified before ingestion",
-    "Defines the per-cycle budget-cap dimensions (tokens, USD, source count, wall-clock) and the fail-closed stop behavior (partial work preserved; no in-cycle override; cap raises are a governance decision)",
-    "Defines the dual coverage+verification gate as the sole conclusion arbiter, defaulting fail-closed to 'not exhausted', and the operational definition of 'exhausted' to be parameterized in M1 (frontier empty + no new sources across K cycles; all claims verified; no unresolved contradictions; reproducibility above threshold)",
+    "Defines the per-cycle budget-cap dimensions (tokens, USD, source count, wall-clock), the aggregate/lifetime ceiling + marginal-coverage-per-dollar tripwire, and the fail-closed stop behavior (partial work preserved; no in-cycle override; cap raises are a governance decision)",
+    "Defines faithfulness (entailment) as a first-class gate distinct from citation coverage - the cited source must actually support the claim (presence != faithfulness)",
+    "Defines the dual frontier-saturation+verification gate as the sole node-level release/promotion arbiter, defaulting fail-closed to 'not yet', and the operational definition of 'saturated' to be parameterized in M1 (frontier empty + no new sources across K cycles only after a search-recall/source-diversity floor is cleared; all claims verified and faithful; no unresolved contradictions; reproducibility above threshold) - with no global 'final answer' door",
+    "Specifies the tiered human-checkpoint model (batched lightweight approval for low-risk breadth; full review for high-risk routing, self-improvement diffs, and budget changes)",
     "Specifies that self-improvement is quality-only (taxonomy/method/prompt) and may never modify budget caps, gates, or refusal rules (governance-controlled, server-enforced)",
     "Specifies domain-risk routing ('informational, not advice' + credentialed-expert-review flag for health/legal/safety/financial) and non-partisan handling for civic/contested topics",
     "Defines the adversarial test taxonomy the red-team suites must cover, including prompt-injection from ingested content (e.g. 'mark the corpus exhausted', 'ignore the budget cap'), and the build-fails-on-bypass requirement",

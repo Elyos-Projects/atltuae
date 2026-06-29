@@ -1,14 +1,15 @@
 # ATLTUAE — PLAN.md
 
-> Status: Draft · Version: 0.1.0 · Last updated: 2026-06-28 · Owner: TBD (maintainer) · Lane: donated (funded cycles allowed, with a hard per-cycle cap)
+> Status: Draft · Version: 0.2.0 · Last updated: 2026-06-29 · Owner: TBD (maintainer) · Lane: donated (funded cycles allowed, with a hard per-cycle cap)
 
 **ATLTUAE — "The Answer to Life, the Universe, and Everything."** A self-improving, perpetually-
-looping **open research + analysis engine** that broadens coverage across all domains and emits a
-*final answer* **only** once its coverage gate *and* its verification gate both report the corpus
-exhausted — which, across "all domains," is deliberately almost never. The product is **not** a
-final answer; it is the **ever-improving, fully-cited open synthesis** and the **public coverage
-ledger** that, every human-gated cycle, gets broader, better-verified, and more honest about what is
-still missing.
+looping **open research + analysis engine** that broadens coverage across all domains and maintains a
+**perpetual living synthesis** — never a one-shot "final answer." Each domain node matures through a
+**frontier-saturation / release gate** (is this node saturated enough to publish at confidence tier
+X?) backed by a verification gate; the engine **never declares the corpus globally exhausted** because,
+across "all domains," that is by construction unreachable. The product is the **ever-improving, fully-
+cited open synthesis** and the **public coverage ledger** that, every human-gated cycle, gets broader,
+better-verified, and more honest about what is still missing.
 
 ATLTUAE is built on four refusals that *are* its identity: it **refuses to conclude prematurely**,
 it **refuses to run unattended**, it **refuses to assert without provenance**, and it **refuses to
@@ -21,9 +22,18 @@ hallucinates an oracle's confidence; that is precisely the thing this project ex
 > map of *what we have reviewed and what is still missing* that improves every human-approved,
 > budget-capped cycle, and that is honest enough to say it is not done.
 
-*(The literal "final answer," should the gates ever truly close, is — by long-standing computation —
-**42**. This is a documented easter egg, not a goal. The gates are engineered so that across the
-breadth of all domains they effectively never close; the value is the journey, not the punchline.)*
+This is, in effect, **automated, open, all-domain "living evidence synthesis"** — the same discipline
+Cochrane's *living systematic reviews* apply to medicine (continually updated syntheses that never
+"conclude"), generalized beyond paywalled corpora and beyond any single field. The reframing matters
+for testability: a node-level **release/escalation gate** has a real positive test case ("promote node
+N to confidence tier X"); a single global "final-answer door" that is engineered never to open is
+untestable and invites a future maintainer to loosen it. ATLTUAE keeps the living synthesis as the
+deliverable and drops the un-completable door.
+
+*(The mythical global "final answer," should every node ever saturate at once, is — by long-standing
+computation — **42**. This is a documented easter egg, not a goal or a release path. It lives only in
+the gate code/README and is never surfaced in the public synthesis; the value is the perpetual,
+honest journey, not the punchline.)*
 
 ---
 
@@ -33,19 +43,30 @@ The world does not lack answers; it lacks *honest maps of how much we actually k
 do not.* Synthesis engines and "research agents" today optimize for the confident-sounding final
 output: they conclude fast, cite loosely, and hide their coverage gaps. ATLTUAE inverts that. It is
 an engine whose **deliverable is the cited synthesis itself plus a public ledger of its own
-ignorance**, and whose hardest-wired rule is *do not emit a final answer until the corpus is
-provably exhausted.* Because "all domains" is never exhausted, the engine's natural state is
+ignorance**, and whose hardest-wired rule is *no node is published or promoted in confidence until its
+frontier is saturated (with a search-recall floor cleared) and its claims are verified and faithful to
+their sources.* Because "all domains" never globally saturate, the engine's natural state is
 **perpetual, disciplined improvement** — broader breadth, deeper depth, stronger verification — not
-conclusion.
+conclusion. A second non-negotiable: a claim's citation must not merely *exist* but must *actually
+support the claim* — **faithfulness, not just presence** — because fluent text with real-looking but
+non-supporting citations is precisely the Galactica failure that makes ungrounded science writing
+dangerous.
 
 The single most important design fact is that **"perpetually looping" must not mean "runs
 headless."** Elyos's core rule is that the platform never runs an agent unattended and never exceeds
 a hard budget cap. ATLTUAE honors this by construction: the "loop" is a **sequence of discrete,
 bounded cycles**, each with a hard per-cycle budget cap (tokens, dollars, source count, wall-clock),
-each ending at a **mandatory human checkpoint** that must approve, modify, or halt the next
-expansion round. There is no continuous autonomous process; there is a governed cadence of small,
-auditable steps. A cycle that hits its cap stops **fail-closed** with partial work preserved, never
-"just one more call."
+each ending at a **human checkpoint** that must approve, modify, or halt the next expansion round.
+There is no continuous autonomous process; there is a governed cadence of small, auditable steps. A
+cycle that hits its cap stops **fail-closed** with partial work preserved, never "just one more call."
+Per-cycle caps alone are not enough: a perpetual cadence of in-cap cycles can still spend unbounded
+*total* dollars while coverage growth asymptotes, so ATLTUAE also enforces a **governance-owned
+aggregate/lifetime budget ceiling** plus a **marginal-coverage-per-dollar tripwire** that forces a
+continue/narrow/mothball decision when new spend stops buying meaningful new coverage. And because "all
+domains" implies an explosion of cycles, the human checkpoint is **tiered**: lightweight *batched*
+approval for low-risk breadth expansion, full human review reserved for high-risk routing, self-
+improvement diffs, and budget changes — so the human gate stays a real control rather than a fatigued
+rubber stamp.
 
 The **M0 spine is the whole thesis in miniature**: the **coverage gate + provenance + budget-cap
 loop**. Before any breadth, ATLTUAE proves it can run *one* bounded cycle on *one* seed domain in
@@ -123,15 +144,22 @@ what happens if the dates slip — the engine does not loop forever for no audie
 
 - Build an open-source engine that runs **bounded, human-gated research cycles** which broaden
   coverage across domains and produce an **ever-improving, fully-cited synthesis**.
-- Make the **coverage gate + verification gate** the hard arbiter of conclusion: emit a final answer
-  **only** when both report the corpus exhausted, and prove the engine **refuses to conclude** while
-  any frontier node or unverified/contradicted claim remains.
-- Attach **verifiable provenance to every claim** (source, license, retrieval date, verification
-  status) and refuse to surface any claim without it ("no source, no claim").
+- Make the **frontier-saturation gate + verification gate** the hard arbiter of *node-level
+  release/promotion*: a node is published or promoted to a higher confidence tier **only** when its
+  frontier is saturated (search-recall floor cleared) and its claims are verified, faithful, and
+  uncontradicted — and prove the engine **refuses to conclude** while any frontier node or unverified/
+  contradicted claim remains. The engine never declares the corpus globally exhausted.
+- Attach **verifiable, faithful provenance to every claim** (source, license, retrieval date,
+  verification status) and refuse to surface any claim without it ("no source, no claim") — and require
+  that the cited source **actually supports the claim** (faithfulness/entailment), not merely that a
+  citation is present.
 - Enforce **hard per-cycle budget caps** (tokens, dollars, source count, wall-clock) that stop the
-  cycle **fail-closed**, and publish a **per-cycle cost ledger** for funded cycles.
+  cycle **fail-closed**, **plus a governance-owned aggregate/lifetime ceiling and a marginal-coverage-
+  per-dollar tripwire**, and publish a **per-cycle cost ledger** for funded cycles.
 - Publish a **public coverage ledger** each cycle — covered vs. missing, per domain node — so the
-  engine's ignorance is as visible as its knowledge.
+  engine's ignorance is as visible as its knowledge, using a **quality-weighted** coverage measure
+  (depth × verification × source-independence): a node is `covered` only above that floor, otherwise
+  `partial`, so breadth can never be bought by lowering the bar.
 - Make the loop **self-improving but gated**: the engine may propose improvements to its own
   taxonomy, methods, and prompts, but a human approves them between cycles, and it may **never**
   self-modify its budget caps, gates, or refusals.
@@ -146,8 +174,9 @@ what happens if the dates slip — the engine does not loop forever for no audie
   explicitly "informational, not advice."
 - **Not an autonomous agent.** It never runs headless or unattended; every expansion round is
   human-gated and budget-capped. There is no "let it run overnight."
-- **Not unbounded.** No cycle exceeds its hard cap; "perpetual" means *a governed cadence of bounded
-  cycles*, not a continuous process.
+- **Not unbounded.** No cycle exceeds its hard cap **and no lifetime of cycles exceeds the aggregate
+  budget ceiling**; "perpetual" means *a governed cadence of bounded cycles*, not a continuous process,
+  and spend stops when marginal coverage-per-dollar collapses.
 - **Not a closed-data engine.** It ingests only open / public-domain / CC-licensed sources whose
   reuse terms are verified before ingestion; controlled-access, paywalled, scraped-against-ToS, or
   unlicensed sources are out of scope.
@@ -171,14 +200,18 @@ public reuse.*
 | Metric | Baseline | Target | How measured |
 |---|---|---|---|
 | Provenance coverage (claims with verifiable, license-clean source) | none | **100%** of surfaced claims; a claim without provenance is withheld | Citation-coverage test in CI + per-cycle audit |
-| Premature-conclusion incidents (final answer emitted while frontier/unverified remain) | n/a | **0** — the gate refuses; reported per release | Gate red-team suite + per-cycle gate audit |
-| Budget-cap adherence (cycles within hard cap) | n/a | **100%**; over-cap stops fail-closed with partial work saved | Budget-governor test + cost ledger reconciliation |
+| Provenance **faithfulness** (cited source actually *entails* the claim) | n/a | **≥ 95%** of a sampled set entail their claim; failures withheld/flagged | Sampled entailment/faithfulness CI gate (distinct from coverage) + human-calibrated audit |
+| Premature-release incidents (node published/promoted before saturation+verification) | n/a | **0** — the release gate refuses; reported per release | Gate red-team suite + per-cycle gate audit |
+| Per-cycle budget-cap adherence (cycles within hard cap) | n/a | **100%**; over-cap stops fail-closed with partial work saved | Budget-governor test + cost ledger reconciliation |
+| Aggregate/lifetime spend within governance ceiling + marginal coverage-per-dollar | n/a | within ceiling; tripwire fires a continue/narrow/mothball decision when coverage-per-dollar collapses | Lifetime cost ledger + marginal-coverage tripwire report |
 | Closed/unlicensed sources ingested | n/a | **0**; license verified before ingestion | License-gate test + provenance audit |
 | Human-checkpoint adherence (expansion rounds gated by a human) | n/a | **100%** of rounds; no auto-advance | Orchestrator audit log |
 | Verification rate (claims independently multi-sourced or adversarially checked) | 0 | rising each cycle; **high-stakes claims 100% multi-sourced** | Verification-layer report |
+| **Source-independence** of multi-sourced claims (not N copies of one primary) | n/a | high-stakes claims backed by **independent** sources; correlated/echoed/LLM-near-dup sources flagged | Source-independence scorer (defends against correlated-source false confidence) |
 | Planted-error detection (seeded false claims caught by verification) | n/a | **≥ 95%** of seeded errors flagged, reported as caught/total at version N | Verification red-team eval |
-| Reproducibility (sampled claims independently re-derivable from recorded sources) | n/a | **≥ 95%** of a random sample re-derived by an independent re-run | Reproducibility check (M4) |
-| Coverage breadth (domain nodes mapped) + frontier honesty | 0 | grows each cycle; **frontier (missing) is always non-empty and published** | Coverage ledger diff per cycle |
+| Reproducibility (sampled claims re-derivable from recorded **archived snapshots**) | n/a | **≥ 95%** of a random sample re-derived by an independent re-run *against the archived snapshot* | Reproducibility check (M4) |
+| Link-rot / source-decay (live sources mutated/disappeared since capture) | n/a | tracked + scheduled for re-verification; reproducibility judged vs. archived snapshot, not live web | Source-decay metric + stale-claim re-verification queue |
+| Quality-weighted coverage breadth (depth × verification × independence) + frontier honesty | 0 | grows each cycle; **frontier (missing) is always non-empty and published**; `covered` only above the quality floor | Coverage ledger diff per cycle |
 | High-stakes-domain routing (health/legal/safety/financial claims) | n/a | **100%** carry "not advice" + expert-review flag | Domain-risk classifier audit |
 | Public reuse of the synthesis/ledger (outcome) | 0 | ≥ N external reuses / downstream deeds seeded *(target set with partner)* | Partner/steward attested log — *TO BE SECURED* |
 
@@ -199,13 +232,23 @@ secured partner — `TO BE SECURED`.)
 - The **coverage ledger**: a versioned, public, per-cycle artifact mapping a domain taxonomy to
   covered / partially-covered / missing, with the frontier (open nodes) always explicit.
 - The **provenance store**: every claim linked to its source(s) with license, retrieval date, query
-  trail, and verification status; "no source, no claim" enforced.
+  trail, content/snapshot hash, and verification status; "no source, no claim" enforced **plus a
+  sampled faithfulness/entailment check** that the source actually supports the claim.
 - The **budget governor**: hard per-cycle caps (tokens, USD, source count, wall-clock) with
-  fail-closed stop and a public cost ledger for funded cycles.
-- The **coverage gate + verification gate**: the dual "is the corpus exhausted?" computation that
-  defaults to *not exhausted* and blocks any final answer while gaps/unverified claims remain.
-- The **verification layer**: adversarial claim checking, contradiction detection, and a multi-source
-  requirement for high-stakes claims.
+  fail-closed stop, **an aggregate/lifetime ceiling and a marginal-coverage-per-dollar tripwire**, and
+  a public cost ledger for funded cycles.
+- The **frontier-saturation gate + verification gate**: the dual node-level "is this node saturated
+  and verified enough to release/promote?" computation that defaults to *not yet* and blocks
+  publication/promotion while gaps, unverified/unfaithful, or contradicted claims remain (the engine
+  never declares global exhaustion).
+- The **verification layer**: adversarial claim checking, contradiction detection, a multi-source
+  requirement for high-stakes claims, and **source-independence scoring** so multi-sourcing cannot be
+  satisfied by correlated/echoed/near-duplicate sources.
+- **Dedup / novelty detection**: a defined novelty threshold and near-duplicate/contradictory-source
+  handling that filters citation-cartel / SEO-spam / LLM-generated near-dupes, so apparent coverage
+  is not inflated and the "no new sources" saturation signal is trustworthy.
+- The **tiered human-checkpoint workflow**: batched lightweight approval for low-risk breadth
+  expansion; full human review for high-risk routing, self-improvement diffs, and budget changes.
 - The **expansion planner**: selects next-cycle breadth/depth targets from coverage gaps.
 - **Gated self-improvement**: the engine proposes taxonomy/method/prompt improvements; a human
   approves between cycles; budget/gates/refusals are off-limits to self-modification.
@@ -221,8 +264,9 @@ secured partner — `TO BE SECURED`.)
 - **Closed / unlicensed / paywalled / ToS-violating / controlled-access ingestion.** Open, PD, or CC
   sources only, verified before ingestion.
 - **PII / personal-data ingestion or republication.** Aggregate / PD / openly-licensed only.
-- **Emitting a final answer while coverage or verification gaps remain.** The no-premature-conclusion
-  rule is absolute.
+- **Publishing or promoting a node while coverage or verification gaps remain**, and **declaring the
+  corpus globally "exhausted."** The no-premature-conclusion rule is absolute; release is node-level
+  and tiered, never a one-shot global "final answer."
 - **High-stakes advice.** No medical/legal/financial/safety *advice*; those surfaces are
   informational-only, "not advice," and expert-review-flagged.
 - **Partisan advocacy** on civic/contested topics (maps sourced positions; does not advocate).
@@ -241,14 +285,39 @@ advice" with an expert-review flag rather than surfacing it as fact.
 
 **Stack.** TypeScript, ESM, pnpm workspaces (per Elyos conventions). Agent-neutral core in
 `packages/`; any Anthropic/Claude specifics live behind a thin provider-neutral LLM client in
-`adapters/` (Elyos core/adapter rule). Reasoning via the Claude API (model tiering and pricing per
-the Claude API skill — a cheap/fast model for routing/extraction, a strong model for synthesis/
-verification judgment), always behind the neutral client so the core stays vendor-neutral. Storage:
-content-addressed artifact store for sources/claims/ledgers (so provenance is checksummed and
-reproducible) plus a relational/SQLite index for the taxonomy and claim graph; vector retrieval
-(e.g., pgvector or a local embedding index) for de-duplication and gap detection. Funded cycles run
-**only** via `packages/runner` on an Anthropic API key with a hard per-task budget cap (Elyos funded-
-lane rule). Code license **MIT**; synthesis/ledger/datasets **CC-BY-4.0**.
+`adapters/` (Elyos core/adapter rule). Reasoning via the Claude API, always behind the neutral client
+so the core stays vendor-neutral. Storage: content-addressed artifact store for sources/claims/ledgers
+(so provenance is checksummed and reproducible against an **archived snapshot**, defending against
+link rot) plus a relational/SQLite index for the taxonomy and claim graph; vector retrieval (e.g.,
+pgvector or a local embedding index) for de-duplication, novelty detection, and gap detection. Funded
+cycles run **only** via `packages/runner` on an Anthropic API key with a hard per-task budget cap
+(Elyos funded-lane rule). Code license **MIT**; synthesis/ledger/datasets **CC-BY-4.0**.
+
+**Claude API leverage (behind the neutral client; verify current pricing/TTLs via the `claude-api`
+skill before sizing caps).** Concrete levers that map onto this architecture:
+- **Model tiering for cost discipline** — a cheap/fast model (Haiku-class) for high-volume routing,
+  source triage, dedup-candidate screening, and claim *extraction*; a strong model (Opus/Sonnet-class)
+  for synthesis and adversarial verification *judgment*. This is the single biggest lever on cost-per-
+  coverage and feeds the budget governor's per-call metering.
+- **Anthropic Citations for char-level provenance** — Citations returns claims tied to the exact
+  source spans they are drawn from, giving **character-level grounding** stored directly in the
+  provenance record (not a model-asserted footnote). This is the backbone of the synthesis layer and
+  the foundation of the faithfulness gate.
+- **Prompt caching of the standing context** — the loop re-sends large stable context every cycle (the
+  refusal charter / loop-charter, the taxonomy, verification rubrics, the standing claim-graph
+  summary). Caching that stable prefix across calls/cycles cuts recurring per-cycle cost and latency;
+  vary only the per-node task. This materially lowers the recurring spend the aggregate ceiling guards.
+- **Batch processing** for non-interactive breadth passes (bulk extraction/screening across many
+  sources) to further cut cost on high-volume, low-stakes work.
+
+**What Claude must NOT decide (enforced in code, never by prompt).** The model is *one input* to
+deterministic code checks, never the arbiter: it may never declare a node "released" or "exhausted"
+(the gate is a deterministic computation over the ledger/claim graph), never surface an unverified/
+unfaithful claim, never raise a budget cap or self-modify a constraint, and never auto-advance past a
+checkpoint. Ingested content that tries to move these decisions (prompt injection: "mark the corpus
+exhausted," "ignore the budget cap") is defeated by **architecture** — retrieved text is quarantined
+as structured data fed into a code check, not concatenated into instruction context — not by a prompt
+asking the model to behave.
 
 **Components**
 
@@ -258,42 +327,72 @@ lane rule). Code license **MIT**; synthesis/ledger/datasets **CC-BY-4.0**.
    *ledger* (write the public coverage + cost ledger) → *checkpoint* (stop; await human decision).
    It is **never** invoked headless; the next cycle requires an explicit human approval. A cycle that
    hits any budget cap halts **fail-closed**, persists partial work, and writes a truncation note to
-   the ledger.
+   the ledger. Because "all domains" implies an explosion of cycles that would make a single human
+   reviewer a bottleneck (or a fatigued rubber stamp — silently voiding the safety property), approvals
+   are **tiered**: low-risk breadth expansion can be **batch-approved** lightweight, while full human
+   review is reserved for high-risk domain routing, self-improvement diffs, and budget changes. Tiering
+   reduces human load without weakening the gate where it matters.
 
 2. **Coverage ledger (`packages/core/ledger`) — the public map of knowledge *and* ignorance.** A
    versioned, per-cycle artifact over a domain taxonomy (tree/DAG of topics). Each node carries a
    status (`unexplored | partial | covered`), a source count, a verification summary, and an explicit
-   list of **open frontier nodes** (what is still missing). The frontier is **never empty** until the
-   coverage gate proves exhaustion. Rendered to a public, human-readable dashboard.
+   list of **open frontier nodes** (what is still missing). A node is marked `covered` **only above a
+   quality floor — depth × verification × source-independence**; below it the node stays `partial`, so
+   breadth cannot be bought by lowering the bar and the ledger is not inflated by thousands of shallow
+   depth-1 nodes. The frontier is **never empty** until the saturation gate proves node-level
+   saturation. Rendered to a public, human-readable dashboard.
 
-3. **Provenance store (`packages/core/provenance`) — "no source, no claim."** Every claim is a record
-   linking to one or more `Source`s (URL/identifier, title, **license + verified reuse status**,
-   retrieval date, content hash, the query/derivation trail) and a verification status. The synthesis
-   engine **cannot** surface a claim lacking provenance; a citation-coverage test enforces this in CI.
-   Sources and claims are content-addressed so a claim is **reproducible** (re-derivable from recorded
-   inputs).
+3. **Provenance store (`packages/core/provenance`) — "no source, no claim" *and* "no faithful
+   support, no claim."** Every claim is a record linking to one or more `Source`s (URL/identifier,
+   title, **license + verified reuse status**, retrieval date, content/snapshot hash, the
+   query/derivation trail, **and the exact source span** via Anthropic Citations) and a verification
+   status. Two distinct CI gates guard the store: (a) a **citation-coverage test** — fails the build if
+   any surfaced claim is unsourced; and (b) a **sampled faithfulness/entailment test** — does the cited
+   snapshot *actually support* the claim? Citation presence ≠ faithfulness (the Galactica / Wikidata
+   ProVe failure), so faithfulness is a first-class, separately-reported gate, not a sub-case of
+   coverage. Sources and claims are content-addressed against an **archived snapshot** so a claim is
+   **reproducible** even after the live web mutates (link rot).
 
-4. **Budget governor (`packages/core/budget`) — hard caps, fail-closed.** Per-cycle caps on tokens,
-   **USD** (funded), source count, and wall-clock. The governor meters every LLM/fetch call against
-   the remaining budget and **refuses** the call that would exceed it — the cycle stops, partial work
-   is saved, and the cost ledger records actual spend vs. cap. There is no override path for a user to
-   raise a running cycle's cap; raising caps is a between-cycle human decision recorded in governance.
+4. **Budget governor (`packages/core/budget`) — hard caps, fail-closed, *and* lifetime-bounded.**
+   Per-cycle caps on tokens, **USD** (funded), source count, and wall-clock. The governor meters every
+   LLM/fetch call against the remaining budget and **refuses** the call that would exceed it — the
+   cycle stops, partial work is saved, and the cost ledger records actual spend vs. cap. Beyond the
+   per-cycle cap it also enforces a **governance-owned aggregate/lifetime budget ceiling** (a perpetual
+   cadence of in-cap cycles can still spend unbounded *total* dollars while coverage asymptotes) and a
+   **marginal-coverage-per-dollar tripwire**: when new spend stops buying meaningful new quality-
+   weighted coverage, it forces a continue/narrow/mothball decision — a cost-driven complement to the
+   partner-driven 2027 mothball rule. There is no override path for a user to raise a running cycle's
+   cap or the lifetime ceiling; raising either is a between-cycle human decision recorded in governance.
 
-5. **Coverage gate + verification gate (`packages/core/gates`) — the conclusion arbiter.** The dual
-   gate that answers "is the corpus exhausted?" and is the **only** thing permitted to release a final
-   answer. *Coverage gate:* exhausted only if there are **no open frontier nodes** *and* **no new
-   sources discovered across K consecutive cycles**. *Verification gate:* exhausted only if **all
-   claims are verified**, there are **no unresolved contradictions**, and reproducibility is above
-   threshold. Both must report exhausted. The gate **defaults fail-closed to "not exhausted"**; any
-   uncertainty, missing data, or gate error means *no final answer*. Across "all domains" this is
-   effectively never satisfied — by design.
+5. **Frontier-saturation gate + verification gate (`packages/core/gates`) — the node-level
+   release/escalation arbiter.** Renamed from "conclusion gate" because it measures **saturation of the
+   current frontier**, not exhaustion of a domain: frontier nodes are generated from the taxonomy, and
+   the taxonomy is itself expanded via gated self-improvement, so "no open frontier nodes" means only
+   *no known unknowns under the current taxonomy* — never *unknown unknowns*. The README and all
+   surfaces stop implying the corpus *can* be exhausted. The gate's real, testable job is **node-level
+   release/promotion**: "is node N saturated and verified enough to publish at confidence tier X?"
+   *Saturation gate:* a node is saturated only if there are **no open frontier nodes under it** *and*
+   **no new sources across K consecutive cycles** — but the "no new sources" signal counts **only after
+   a search-recall / source-diversity floor is cleared** (a minimum diversity of query strategies and
+   source classes per node, including citation-graph traversal), so "no new sources" means "we looked
+   hard," not "we asked narrowly." *Verification gate:* a node releases only if **all its claims are
+   verified and faithful**, there are **no unresolved contradictions**, and reproducibility (vs.
+   archived snapshot) is above threshold. The gate **defaults fail-closed to "not yet"**; any
+   uncertainty, missing data, unmet recall floor, or gate error means *no release/promotion*. There is
+   **no global "final answer" door** — that event is engineered never to fire and is untestable; the
+   testable positive case is promoting a node to a higher confidence tier.
 
 6. **Verification layer (`packages/core/verify`).** Adversarial claim checking (steel-man the claim,
-   seek disconfirming sources), contradiction detection across the claim graph, and a **multi-source
-   requirement** that scales with stakes (high-stakes claims require multiple independent, license-
-   clean sources before they may be surfaced even as "informational"). Leverages the `deep-research`
-   harness pattern (fan-out search → fetch → adversarially verify → synthesize) as the per-claim
-   verification engine.
+   seek disconfirming sources), a **faithfulness/entailment check** (does source S entail claim C?),
+   contradiction detection across the claim graph, and a **multi-source requirement** that scales with
+   stakes (high-stakes claims require multiple independent, license-clean sources before they may be
+   surfaced even as "informational"). Crucially it includes **source-independence scoring**: multi-
+   sourcing is defeated by *correlated* sources (everyone citing the same wrong primary, or LLM-content
+   echo chambers), so the layer detects shared-primary / echoed / LLM-generated near-duplicates and a
+   "multi-sourced" claim cannot be satisfied by N copies of one claim. Verification ≠ truth — so
+   contradictions and source-independence are *surfaced*, not averaged away. Leverages the
+   `deep-research` harness pattern (fan-out search → fetch → adversarially verify → synthesize) as the
+   per-claim verification engine.
 
 7. **Expansion planner (`packages/core/planner`).** Reads the coverage ledger and proposes the next
    cycle's targets — **breadth** (new domain nodes) and **depth** (under-covered existing nodes) — with
@@ -328,12 +427,81 @@ lane rule). Code license **MIT**; synthesis/ledger/datasets **CC-BY-4.0**.
 - "Perpetual loop" is implemented as a **human-gated, budget-capped cadence of bounded cycles**, never
   a continuous autonomous process — reconciling the moonshot with Elyos's "never headless / hard cap"
   rules.
-- The **coverage gate defaults fail-closed to "not exhausted."** It is far safer to keep researching
-  than to conclude wrongly; under-concluding is recoverable, over-concluding is the harm.
+- The **frontier-saturation/release gate defaults fail-closed to "not yet."** It releases/promotes a
+  node only when saturated (recall floor cleared) and verified+faithful; it is far safer to keep
+  researching than to conclude wrongly. Under-releasing is recoverable, over-releasing is the harm.
+  There is no global "final-answer" door — a gate engineered never to open is untestable and invites a
+  future maintainer to loosen it; node-level release is the testable job.
 - **Self-improvement is quality-only and human-approved**; the engine cannot loosen its own
   guardrails. This is the difference between "self-improving" and "self-unbounding."
 - **Agent-neutral core**; Claude/Anthropic specifics behind the LLM client in `adapters/`. Funded
   cycles only via `packages/runner` with a hard cap.
+
+---
+
+## Competitive landscape & differentiation
+
+No existing system combines *open-only sources + per-claim faithful provenance + a public coverage/
+ignorance ledger + a refuse-to-conclude (node-level release) gate + hard budget caps + human
+checkpoints.* Each property exists somewhere; the adjacent field is crowded and fast-moving.
+
+**Incumbents and adjacent work (grouped).**
+
+- **Autonomous "research agent" / scientist loops — the cautionary baseline.** *AutoGPT*-class loops
+  ("give it a goal, let it loop") are documented to fall into infinite loops, vague "more work needed"
+  completion detection, and **runaway cost**. The recommended fix — hard step ceilings + no-progress
+  detection — is exactly what ATLTUAE's deterministic, code-enforced budget governor and gate provide.
+  *Sakana AI Scientist* runs an end-to-end ideate→experiment→write loop but independent evaluation found
+  weak literature reviews and **hallucinated results**; it optimizes for a finished artifact — the
+  opposite of refuse-to-conclude.
+- **Grounded "deep research" synthesizers — the confident-final-output incumbents ATLTUAE inverts.**
+  *OpenAI Deep Research* and *Google/Gemini Deep Research* browse hundreds of sites and return long
+  cited reports, but are closed/proprietary, **conclude in one pass**, give no coverage ledger and no
+  provenance-faithfulness guarantee ("a link ≠ accuracy"). *Stanford STORM* (open-source, NAACL 2024)
+  generates grounded, multi-perspective Wikipedia-like articles — the closest published kin to "map the
+  positions" — but is single-shot per topic, with no license-gating, budget governor, frontier ledger,
+  or refuse-to-conclude gate. *Microsoft GraphRAG* is a strong **technique to adopt** (entity/community-
+  summary graph for whole-corpus breadth questions), not a product competitor: it runs over a fixed
+  private corpus with no faithfulness/license/budget discipline.
+- **Closed scholarly assistants — the practical incumbents.** *Elicit* (138M+ papers, structured
+  extraction, systematic-review workflow), *Consensus* (fast claim-level evidence), and *Undermind*
+  (deep citation-graph traversal, "10x Google Scholar" recall) are best-in-class at scholarly recall and
+  extraction — capabilities ATLTUAE's planner needs — but are **closed, scholarly-DB-bound, single-
+  session**, with no coverage-ignorance ledger and no license discipline.
+- **Open knowledge bases — values-aligned non-AI incumbents.** *Wikipedia/Wikidata* are the gold
+  standard for open, cited, community-verified knowledge, but huge fractions of statements are
+  **unreferenced or weakly referenced** and reference quality **decays over time**; the *ProVe* project
+  automates checking whether a reference actually *supports* a claim — i.e., the faithfulness gap is a
+  recognized, active problem ATLTUAE attacks head-on as a hard product gate.
+- **Methodological precedents.** *Cochrane living systematic reviews* — evidence syntheses continually
+  updated via frequent search/screen/appraise/integrate cycles — are the **closest existing methodology**
+  and validate ATLTUAE's core thesis (don't conclude once; keep the synthesis alive); ATLTUAE is, in
+  effect, automated open all-domain living evidence synthesis, and reframes its "final answer" toward
+  this model. *Galactica* (Meta, 2022, pulled after 3 days for fluent text with **fabricated
+  citations**) is the single best justification for the "no source, no claim" **+ faithfulness** stance.
+  *Open-endedness research* (Clune/Stanley; POET/OMNI) is the academic frame for "a loop that never
+  concludes" and a source of novelty-search techniques for the expansion planner — but ATLTUAE
+  deliberately **bounds** open-endedness with human gates and budget caps, a contrast worth stating.
+
+**Differentiators to win.**
+
+1. **"Honest by construction" — the public ledger of ignorance.** *No competitor publishes what it has
+   NOT covered.* A calibrated, per-node, always-non-empty frontier ("the research tool that tells you
+   what it doesn't know") is the defensible center and the one-line pitch.
+2. **Faithful, license-clean, reproducible provenance.** Content-addressed snapshots + entailment checks
+   + verified reuse rights = claims that are *checkable and reusable*, directly answering the Galactica /
+   Deep-Research / Wikidata-ProVe trust failure that no one ships as a hard gate.
+3. **Open / license-clean-only corpus → freely reusable (CC-BY) outputs** — uniquely valuable to the
+   commons, educators, and downstream training that needs clean-licensed data; the closed scholarly
+   tools and the license-indifferent web scrapers cannot offer this.
+4. **Governed open-endedness — "perpetual but never runaway."** Code-enforced budget caps + human
+   checkpoints + a self-improvement firewall (quality-only, never constraints) is a differentiated
+   engineering posture vs. AutoGPT.
+5. **Public, auditable cost & governance** — per-cycle cost ledger + checkpoint audit log + governance-
+   controlled cap changes: trust infrastructure for public-interest funders that closed tools can't match.
+6. **Commons-native, all-domain, risk-routed, Elyos meta-tool leverage** — a general engine that
+   *escalates* high-stakes domains to "not advice" + expert review, and that doubles as a discovery
+   engine for other Elyos deeds — a niche nobody occupies, compounding across the platform.
 
 ---
 
@@ -348,11 +516,15 @@ unknown, closed, paywalled, controlled-access, or whose ToS forbids automated re
 the license gate** and never ingested. robots.txt / ToS are respected for any automated fetching.
 
 **Provenance model.** Each claim is backed by one or more `Source` records (identifier/URL, title,
-**license + verified reuse status**, retrieval date, content hash, derivation/query trail) and a
-verification status. The synthesis may not surface a claim without an attached, license-clean source
-— enforced by a citation-coverage test. Sources and claims are **content-addressed (hashed)** so the
-provenance chain is tamper-evident and **reproducible**: an independent party can re-derive a sampled
-claim from the recorded sources and queries (the M4 reproducibility check).
+**license + verified reuse status**, retrieval date, content/snapshot hash, the **exact source span**
+via Anthropic Citations, derivation/query trail) and a verification status. The synthesis may not
+surface a claim without an attached, license-clean source — enforced by a citation-coverage test — and
+the cited source **must actually support the claim**, enforced by a separate **sampled faithfulness/
+entailment test** (presence ≠ faithfulness). Sources and claims are **content-addressed (hashed)
+against an archived snapshot** so the provenance chain is tamper-evident and **reproducible even when
+the live web mutates (link rot)**: an independent party can re-derive a sampled claim from the recorded
+**archived** sources and queries (the M4 reproducibility check), and a **source-decay metric** tracks
+references that have since moved/disappeared and queues them for re-verification.
 
 **Share-alike handling.** CC-BY-SA and ODbL source material carries share-alike obligations. The
 synthesis records per-claim license lineage; any derived artifact that incorporates share-alike
@@ -394,8 +566,10 @@ adversarially.
 - **Gate/red-team review** — the adversarial suites for *premature conclusion*, *budget bypass*,
   *unsourced claim*, and *closed-source ingestion* pass in CI **and** an independent reviewer audits
   gate behavior before any synthesis is published.
-- **Provenance/reproducibility review** — a sampled set of published claims is independently
-  re-derived from recorded sources.
+- **Provenance / faithfulness / reproducibility review** — a sampled set of published claims is
+  independently re-derived from recorded **archived** sources, **and** independently checked for
+  faithfulness (does the cited snapshot entail the claim?). Faithfulness and coverage are separate
+  release gates.
 - **Credentialed-expert sign-off** — for any HIGH-tier (health/legal/safety/financial) surface in the
   published synthesis. No expert, no ship of that surface. **TO BE SECURED.**
 - **Non-partisan review** for civic/contested sections.
@@ -425,22 +599,33 @@ reproducibility + public synthesis, then sustain. No phase relaxes the four refu
   carries verifiable, license-clean provenance** (citation-coverage test green); the **budget cap is
   enforced fail-closed** (proven by a cap-trip test); a **public coverage ledger** is published with a
   non-empty frontier; a **human checkpoint gates** the next cycle; and **no final answer is emitted**.
-  Monorepo + CI green; loop-charter/responsible-loop spec merged.
+  Monorepo + CI green; loop-charter/responsible-loop spec merged. Cost discipline lands early:
+  **model tiering** (Haiku-class extraction/triage → strong model for synthesis/verification) and
+  **prompt-caching of the standing context** (refusal charter + taxonomy + rubrics as a stable cached
+  prefix) behind the neutral client; provenance records store **Anthropic Citations char-level spans**.
 
-- **M1 — Gates & verification (no premature conclusion).**
-  *Goal:* the dual coverage+verification gate and an adversarial verification layer.
-  *Exit:* the coverage gate + verification gate compute and report, **default fail-closed to "not
-  exhausted,"** and block any final answer while frontier/unverified/contradicted claims remain;
-  verification catches **≥ 95%** of seeded false claims; the **premature-conclusion / budget-bypass /
-  unsourced-claim red-team suite** passes in CI (build fails on bypass).
+- **M1 — Gates & verification (no premature conclusion; faithfulness as a gate).**
+  *Goal:* the dual frontier-saturation+verification gate and an adversarial verification layer.
+  *Exit:* the **frontier-saturation gate + verification gate** compute and report, **default fail-closed
+  to "not yet,"** and block node release/promotion while frontier/unverified/unfaithful/contradicted
+  claims remain; the "no new sources" signal counts **only after a search-recall / source-diversity
+  floor is cleared**; a **sampled faithfulness/entailment CI gate** (distinct from citation coverage)
+  is green; verification catches **≥ 95%** of seeded false claims and applies **source-independence
+  scoring**; `covered` requires the depth × verification × independence quality floor; the
+  **premature-release / budget-bypass / unsourced-claim / unfaithful-claim red-team suite** passes in
+  CI (build fails on bypass).
 
-- **M2 — Expansion planner, human checkpoints & gated self-improvement.**
+- **M2 — Expansion planner, tiered checkpoints, aggregate budget & gated self-improvement.**
   *Goal:* broaden coverage measurably across multiple cycles, with self-improvement that can't loosen
-  constraints.
-  *Exit:* a multi-cycle run measurably broadens coverage breadth + depth (ledger diff shows growth and
-  an always-non-empty frontier); the human-checkpoint workflow (approve/modify/halt with cycle diff +
-  coverage delta + cost) works; self-improvement proposals are **human-approved** and provably
-  **cannot** touch budget/gates/refusals.
+  constraints, and a checkpoint model that scales.
+  *Exit:* a multi-cycle run measurably broadens quality-weighted coverage breadth + depth (ledger diff
+  shows growth and an always-non-empty frontier); the **tiered human-checkpoint workflow** (batched
+  lightweight approval for low-risk breadth; full review for high-risk routing / self-improvement diffs
+  / budget changes; each with cycle diff + coverage delta + cost) works; the **aggregate/lifetime
+  budget ceiling + marginal-coverage-per-dollar tripwire** are enforced and fire a continue/narrow/
+  mothball decision; **GraphRAG-style community summarization** answers whole-corpus breadth questions
+  without re-reading everything each cycle; self-improvement proposals are **human-approved** and
+  provably **cannot** touch budget/gates/refusals.
 
 - **M3 — Domain-risk routing + licensing/privacy hardening.**
   *Goal:* safe behavior across *all* domains, including high-stakes ones.
@@ -452,8 +637,10 @@ reproducibility + public synthesis, then sustain. No phase relaxes the four refu
 - **M4 — Reproducibility + public synthesis + cost ledger.**
   *Goal:* the public deliverable, independently re-derivable, with a public cost ledger.
   *Exit:* the cited synthesis + coverage dashboard are published (CC-BY) with a re-derivation guide;
-  an **independent re-run re-derives ≥ 95%** of a sampled claim set; the **public cost ledger** for
-  funded cycles reconciles actual spend vs. cap with **0 over-cap** cycles.
+  an **independent re-run re-derives ≥ 95%** of a sampled claim set **against the archived snapshot**;
+  a **link-rot / source-decay metric + stale-claim re-verification queue** age and re-check old claims;
+  the **public cost ledger** for funded cycles reconciles actual spend vs. cap with **0 over-cap**
+  cycles **and reports aggregate/lifetime spend vs. ceiling**.
 
 - **M5 — Sustain, community & governance (post-delivery).**
   *Goal:* durable cadence, community-proposed domains, and governance of the loop.
@@ -533,16 +720,21 @@ demonstrate the `fundedBudgetUsd` hard-cap contract.
 | Risk | Likelihood | Impact | Mitigation | Owner |
 |---|---|---|---|---|
 | Loop runs away / behaves headless (the moonshot's core danger) | Medium | Critical | "Perpetual" = bounded cycles only; mandatory human checkpoint before every expansion round; no continuous process; orchestrator cannot self-advance; audit log proves gating | Maintainer / Gate reviewer |
-| Budget overrun / uncapped compute spend | Medium | High | Hard per-cycle caps (tokens/USD/sources/wall-clock); fail-closed stop with partial save; no in-cycle cap override; funded only via `packages/runner`; public cost ledger reconciled | Gate reviewer / Maintainer |
-| Premature conclusion (emits a "final answer" while gaps remain) | Medium | High | Dual coverage+verification gate **defaults fail-closed to "not exhausted"**; gate red-team suite fails build on any bypass; frontier ledger always published non-empty | Gate reviewer |
+| Per-cycle budget overrun / uncapped compute spend | Medium | High | Hard per-cycle caps (tokens/USD/sources/wall-clock); fail-closed stop with partial save; no in-cycle cap override; funded only via `packages/runner`; public cost ledger reconciled | Gate reviewer / Maintainer |
+| Aggregate spend unbounded while coverage asymptotes (in-cap cycles forever) | Medium | High | **Governance-owned lifetime ceiling** + **marginal-coverage-per-dollar tripwire** forcing continue/narrow/mothball; lifetime cost ledger — a cost-driven complement to the 2027 partner rule | Gate reviewer / Maintainer |
+| Premature release (publishes/promotes a node before saturation+verification) | Medium | High | Frontier-saturation+verification gate **defaults fail-closed to "not yet"**; node-level release/promotion, no global "final-answer" door; gate red-team suite fails build on any bypass; frontier ledger always non-empty | Gate reviewer |
+| False saturation via narrow querying ("no new sources" is gameable) | Medium | High | "No new sources" counts **only after a search-recall / source-diversity floor is cleared** (multiple query strategies + source classes incl. citation-graph traversal) | Gate reviewer |
 | Unsourced / hallucinated claims surfaced as fact | High | High | "No source, no claim" enforced by citation-coverage test; content-addressed provenance; adversarial verification + multi-source for high-stakes; reproducibility audit | Maintainer / Provenance auditor |
+| Citation present but does **not support** the claim (Galactica/ProVe failure) | High | High | **Sampled faithfulness/entailment CI gate** distinct from coverage; Anthropic Citations char-level spans; unfaithful claims withheld/flagged | Provenance auditor / Gate reviewer |
+| Human checkpoint becomes a bottleneck or fatigued rubber-stamp at "all-domains" scale | Medium | High | **Tiered checkpoints** — batched lightweight approval for low-risk breadth, full review only for high-risk routing / self-improvement / budget changes; human-effort-per-cycle tracked | Maintainer / Gate reviewer |
+| Link rot / source decay defeats reproducibility | Medium | Medium | Content-addressed **archived snapshots**; reproducibility judged vs. snapshot not live web; source-decay metric + stale-claim re-verification queue | Provenance auditor |
 | Closed/unlicensed/ToS-violating source ingested | Medium | High | License gate verifies reuse terms **before** ingestion; rejects unknown/closed/paywalled/controlled-access; robots/ToS respected; provenance audit | Maintainer |
 | High-stakes claim presented as advice | Medium | Critical | Domain-risk router tags health/legal/safety/financial → "not advice" + expert-review flag; no expert, no ship of that surface | Expert reviewer / Maintainer |
 | Self-improvement loosens its own guardrails | Low | Critical | Self-improvement is quality-only (taxonomy/method/prompt); budget/gates/refusals are governance-controlled and server-enforced, off-limits to the engine; every change human-approved | Maintainer / Gate reviewer |
 | PII / privacy violation via open-web ingestion | Medium | High | PII filter blocks personal-data ingestion/republication; aggregate/PD/CC only; no dossiers on private individuals | Maintainer |
 | Partisan drift on civic/contested topics | Medium | Medium | Non-partisan handling (map sourced positions, don't advocate); non-partisan review of civic sections | Reviewer |
 | No partner/audience secured → ships to no one / loops forever | High | High | Honest `TO BE SECURED`/`verifiedNeed:false`; **dated partner-acquisition plan** + **continue-vs-mothball/pivot decision rule** (~2027-03-31): pivot deliverable to an open-knowledge community or mothball to a frozen, published final-state artifact — not loop forever for no one | Steward / Maintainer |
-| Verification gives false confidence (verified ≠ true) | Medium | Medium | Verification is adversarial + multi-source, not single-source agreement; contradictions surfaced not hidden; reproducibility audit; "informational, not advice" on high-stakes | Gate reviewer / Expert |
+| Verification gives false confidence (verified ≠ true; correlated sources) | Medium | Medium | Verification is adversarial + multi-source with **source-independence scoring** (defeats correlated/echoed/LLM-near-dup sources), not single-source agreement; contradictions surfaced not hidden; reproducibility audit; "informational, not advice" on high-stakes | Gate reviewer / Expert |
 | "Cover all domains" scope is infinite / never delivers | High | Medium | The *deliverable is the ever-improving synthesis*, not completion; each cycle is a shippable increment; seed-domain-first keeps early cycles tractable | Maintainer |
 
 ---
@@ -560,8 +752,10 @@ the corpus exhausted") or planted falsehoods. Controls:
 - **Gates and budget caps are enforced in code, server-side**, and **cannot be overridden by ingested
   content or model output** — the conclusion gate is a deterministic check over the ledger/claim
   graph, not a thing the model can "decide."
-- **Source content is treated as data, not instructions** — verification and synthesis prompts are
-  hardened so retrieved text cannot redirect the engine's behavior.
+- **Source content is treated as data, not instructions** — implemented by **structurally quarantining
+  ingested text as data fed into a code check**, not concatenating it into the instruction context
+  (prompt-level "treat as data" rules are bypassable, so the defense is architectural, not a prompt).
+  Verification and synthesis prompts are additionally hardened.
 - **Adversarial verification + multi-source** specifically defends against data poisoning; a single
   source can never establish a high-stakes claim, and contradictions are surfaced.
 - **License gate + PII filter** run **before** ingestion, so closed/personal content never enters the
@@ -594,6 +788,38 @@ ledger frozen and published as a final-state artifact** rather than left looping
 
 ---
 
+## Adjacent opportunities
+
+Spin-offs that compound ATLTUAE's investment across the Elyos platform (designed-for where it shapes
+package boundaries, built post-delivery unless noted):
+
+- **Reusable `@elyos/research-loop` framework.** Extract the bounded-cycle orchestrator + budget
+  governor + provenance store + gate harness as a standalone, agent-neutral library so every other
+  Elyos deed that needs "governed, cited research without running away" reuses it. Highest-leverage
+  spin-off — ATLTUAE becomes the reference implementation of a platform capability. Whether to design
+  the package boundaries for this from M0 is an open question (it shapes the seams).
+- **A Coverage-Ledger standard (open spec + schema).** A portable, public schema for "covered /
+  partial / missing + provenance + cost" (JSON/RDF) that others (Wikimedia, OpenAlex, living-review
+  teams) can emit. If the *ledger format* becomes a shared standard, ATLTUAE owns the category.
+- **A provenance/faithfulness verification engine as an MCP server.** Expose "given claim + source, is
+  it faithful + license-clean?" as an **MCP server** any Claude/agent workflow (or Wikipedia editors,
+  à la ProVe) can call — turning the hardest-to-build piece into a widely reusable tool and trust brand.
+- **"Honest summarizer" consumer surface** — a lightweight tool that answers a question *and* shows its
+  coverage gaps + faithful citations: the anti-Deep-Research, marketing the differentiator directly.
+- **Elyos deed-discovery meta-tool** — point the engine at "where are the biggest gaps in the open
+  commons?" to generate scoped, verified-need good-deed proposals for the rest of the platform.
+- **Distributed / donated-compute coverage.** Because cycles are bounded and independent per node,
+  breadth expansion is embarrassingly parallel: many donated-compute volunteers each run one bounded,
+  human-gated node-cycle and submit signed, provenance-stamped ledger diffs that merge into the public
+  ledger — scaling breadth without a central runaway loop, a natural fit for Elyos's donated lane.
+- **Living-evidence partnership kit** — package the engine for Cochrane-style living-review teams as
+  the open, all-domain generalization of their methodology; a concrete partner-acquisition vehicle.
+
+(Backlog tasks `atltuae-federation-021`, `-seed-deeds-023`, `-dataset-024`, `-eval-025` already seed
+several of these.)
+
+---
+
 ## Open questions
 
 - **Seed domain — decided in M0, not deferred,** because it fixes the first cycles' source corpus and
@@ -606,9 +832,31 @@ ledger frozen and published as a final-state artifact** rather than left looping
 - **What, concretely, are the budget caps?** Per-cycle token / USD / source-count / wall-clock numbers
   need a first proposal and a governance ratification (and a documented process for raising them
   between cycles). Funded-cycle USD cap especially.
-- **Define "exhausted" operationally for the verification gate** — the reproducibility threshold, the
-  K consecutive-cycles-without-new-sources window for the coverage gate, and the contradiction-
-  resolution bar. These determine whether the gate is meaningfully strict.
+- **Define "saturated" operationally for the gates** — the reproducibility threshold, the K
+  consecutive-cycles-without-new-sources window, **the search-recall / source-diversity floor that must
+  be cleared *before* "no new sources" can count** (so saturation reflects effort, not narrow
+  querying), and the contradiction-resolution bar. These determine whether the gate is meaningfully
+  strict.
+- **How is faithfulness (not just citation presence) measured and CI-gated?** What entailment method
+  (Anthropic Citations / LLM-judge), what sampled rate, what human-calibration loop — and is it a hard
+  release gate or only a report? (Recommendation: a hard, sampled release gate.)
+- **What are the *aggregate* budget controls?** The lifetime/quarterly ceiling value and the marginal-
+  coverage-per-dollar tripwire threshold, in addition to per-cycle caps and the 2027 partner deadline —
+  who owns and ratifies them in governance?
+- **`covered` vs `partial` floor.** The exact depth × verification × source-independence threshold
+  below which a node cannot be called `covered`, so breadth can't be bought cheaply.
+- **Source-independence detection.** How will correlated / echoed / LLM-generated near-duplicate
+  sources be detected so multi-sourcing isn't satisfied by duplicates? What independence signal feeds
+  the high-stakes multi-source rule?
+- **Human-checkpoint scaling.** Where exactly is the line between batched lightweight approval and full
+  human review, and who owns it while the maintainer is still TBD?
+- **Self-improvement firewall — technical guarantee.** What *technically* prevents an approved
+  taxonomy/prompt diff from indirectly weakening a gate (e.g., a prompt change that makes verification
+  laxer)? Is there a diff-classifier or test proving a proposed change cannot touch constraint behavior?
+- **Prompt-injection defense implementation.** Is ingested content actually quarantined as structured
+  data (not concatenated into instruction context), beyond the prompt-level "treat as data" rule?
+- **Spin-off priority.** Is the reusable `@elyos/research-loop` framework + MCP faithfulness server
+  worth designing-for from M0 (it shapes package boundaries), or strictly post-M5?
 - **Lane policy:** donated by default (dogfood), funded cycles allowed with a hard cap and public cost
   ledger — but who funds escrow, and what is the per-cycle ceiling?
 - **Share-alike license strategy** — how to handle CC-BY-SA/ODbL source material in a CC-BY synthesis
@@ -632,3 +880,33 @@ ledger frozen and published as a final-state artifact** rather than left looping
 - Sibling Elyos plan for house style: `planning/projects/public-official-guide/{PLAN,TASKS}.md`
 - Architectural/eval-harness reference: Ofelia app at `C:\code\Ofelia` (`scripts/eval-*.ts`)
 - "42" / the deliberately-unreachable final answer: Adams, *The Hitchhiker's Guide to the Galaxy*
+- Competitive & improvement analysis (merged into this v0.2): `COMPETITIVE-ANALYSIS.md`
+- Closest methodology / living-synthesis reframe: Cochrane *living systematic reviews*
+- Faithfulness-gap precedent (citation present ≠ supporting): Wikidata *ProVe*
+- Cautionary precedent (fluent text, fabricated citations): Meta *Galactica* (2022)
+- Adjacent "deep research" / synthesis systems: OpenAI & Google/Gemini Deep Research, Stanford STORM,
+  Microsoft GraphRAG, Elicit, Consensus, Undermind; AutoGPT/Sakana as runaway/hallucination baselines
+- Open-endedness framing for the expansion planner: Clune/Stanley (POET, OMNI)
+- Claude API levers (model tiering, Citations, prompt caching, batch): the `claude-api` skill
+
+---
+
+## Changelog — v0.2 (analysis merged)
+
+- Reframed the "final answer" as a **perpetual living synthesis** (cf. Cochrane living reviews); the gate that never opens is dropped in favor of node-level release. The "42" easter egg is kept as code/README-only.
+- Renamed the "conclusion/coverage gate" to a **frontier-saturation / release gate** whose testable job is node-level release/promotion, replacing the circular, unmeasurable "corpus exhausted."
+- Added a **search-recall / source-diversity floor** that must be cleared before "no new sources across K cycles" can count toward saturation (closes the narrow-querying false-exhaustion hole).
+- Added a **sampled faithfulness/entailment CI gate** distinct from citation coverage (citation presence ≠ faithfulness — the Galactica / Wikidata-ProVe failure).
+- Added a **governance-owned aggregate/lifetime budget ceiling + marginal-coverage-per-dollar tripwire**, beyond the existing per-cycle caps.
+- Made the human checkpoint **tiered**: batched lightweight approval for low-risk breadth, full review for high-risk routing / self-improvement / budget changes (fixes the scaling/rubber-stamp wall).
+- Added **quality-weighted coverage** (depth × verification × source-independence) — `covered` only above the floor — so breadth can't be bought by lowering the bar.
+- Added **source-independence scoring** so multi-sourcing can't be satisfied by correlated/echoed/LLM-near-duplicate sources; added **dedup/novelty** specification.
+- Defended reproducibility against **link rot** via archived-snapshot hashing + a **source-decay metric and stale-claim re-verification queue**.
+- Folded **Claude API leverage** into architecture: Anthropic **Citations** for char-level provenance, **prompt-caching** the refusal-charter/taxonomy/rubric prefix, **model tiering** (Haiku → strong), batch processing; restated the "model never decides" guardrail with **structural prompt-injection quarantine**.
+- Strengthened the **prompt-injection defense** to structural quarantine (data into a code check), not a prompt-level instruction.
+- Added a **"## Competitive landscape & differentiation"** section (OpenAI/Google Deep Research, Stanford STORM, GraphRAG, Elicit/Consensus/Undermind, Wikipedia/Wikidata+ProVe, Cochrane, Galactica, open-endedness) with six differentiators centered on the public **ledger of ignorance**.
+- Added an **"## Adjacent opportunities"** section: reusable `@elyos/research-loop` framework, a coverage-ledger standard, an MCP provenance/faithfulness server, honest-summarizer surface, deed-discovery meta-tool, donated-compute parallelism, living-evidence partnership kit.
+- Folded optimizations into the **Roadmap** (M0 cost discipline; M1 saturation gate + recall floor + faithfulness + source-independence + quality floor; M2 tiered checkpoints + aggregate budget + GraphRAG summarization; M4 archived-snapshot reproducibility + decay metric).
+- Updated **Success metrics** (faithfulness, aggregate spend, source-independence, link-rot/decay, quality-weighted coverage) and **Risks** (aggregate overrun, false saturation, faithfulness gap, checkpoint rubber-stamp, link rot, correlated-source false confidence).
+- **Merged Open Questions** from the analysis (faithfulness method, aggregate controls, recall floor, checkpoint scaling, `covered` floor, source-independence, self-improvement firewall guarantee, injection quarantine, spin-off priority).
+- Bumped version 0.1.0 → 0.2.0. The four refusals, guardrails, vision, and honesty posture are preserved and strengthened — no guardrail weakened.
