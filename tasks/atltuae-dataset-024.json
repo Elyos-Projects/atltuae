@@ -1,0 +1,35 @@
+{
+  "project": "atltuae",
+  "lane": "donated",
+  "urgent": false,
+  "status": "open",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "id": "atltuae-dataset-024",
+  "title": "Publish the claim/provenance graph as a reusable open dataset",
+  "type": "data",
+  "priority": "low",
+  "domain": [
+    "data",
+    "knowledge-commons",
+    "provenance"
+  ],
+  "riskTier": "medium",
+  "deliverable": "dataset",
+  "tokenEstimate": "medium",
+  "context": "Backlog: publish ATLTUAE's claim/provenance graph as a reusable open dataset under CC-BY-4.0, with a datasheet and full license lineage, so others can build on the verified, content-addressed knowledge graph. Must honor the license gate (only open/PD/CC-derived content) and the privacy filter (no personal data).",
+  "objective": "Publish the claim/provenance graph as a reusable open dataset (CC-BY-4.0) with a datasheet and per-source license lineage, including only license-clean, privacy-filtered content and preserving content-addressed provenance.",
+  "acceptanceCriteria": [
+    "Publishes the claim/provenance graph as a CC-BY-4.0 dataset with a datasheet (contents, schema, provenance, intended use, limitations)",
+    "Records per-source license lineage incl. share-alike attribution; contains only open/PD/CC-derived, privacy-filtered content (no personal data)",
+    "Dataset entries retain content-addressed provenance so claims remain re-derivable"
+  ],
+  "resources": [
+    "PLAN.md",
+    "packages/core/provenance",
+    "packages/core/license-gate",
+    "packages/core/privacy-filter"
+  ],
+  "output": "datasets/atltuae-claim-provenance-graph/",
+  "outputLicense": "CC-BY-4.0"
+}

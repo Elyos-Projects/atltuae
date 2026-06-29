@@ -1,0 +1,35 @@
+{
+  "project": "atltuae",
+  "lane": "donated",
+  "urgent": false,
+  "status": "open",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "id": "atltuae-repro-016",
+  "title": "Reproducibility tooling: independent re-run re-derives sampled claims from recorded sources/queries",
+  "type": "code",
+  "priority": "high",
+  "domain": [
+    "software",
+    "reproducibility",
+    "provenance",
+    "verification"
+  ],
+  "riskTier": "high",
+  "deliverable": "pr",
+  "tokenEstimate": "medium",
+  "context": "Content-addressed provenance is only meaningful if claims are actually re-derivable. This safety-critical M4 task builds reproducibility tooling so an independent re-run, with no access to prior intermediate state, can re-derive >= 95% of a random sample of published claims from the recorded sources/queries, with the procedure documented for external parties.",
+  "objective": "Implement reproducibility tooling so an independent re-run (no access to prior intermediate state) re-derives >= 95% of a random sample of published claims from the recorded sources/queries, investigates and logs misses, and documents the re-derivation procedure for external reproduction.",
+  "acceptanceCriteria": [
+    "An independent re-run (no access to prior intermediate state) re-derives >= 95% of a random sample of published claims from the recorded sources/queries; misses are investigated/logged",
+    "The re-derivation procedure is documented so external parties can reproduce it",
+    "Reviewed and signed off by the provenance auditor + maintainer (recorded)"
+  ],
+  "resources": [
+    "PLAN.md",
+    "packages/core/provenance",
+    "packages/core/verify"
+  ],
+  "output": "packages/core/repro",
+  "outputLicense": "MIT"
+}

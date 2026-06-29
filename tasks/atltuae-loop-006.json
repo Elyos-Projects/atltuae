@@ -1,0 +1,34 @@
+{
+  "project": "atltuae",
+  "lane": "donated",
+  "urgent": false,
+  "status": "open",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "id": "atltuae-loop-006",
+  "title": "Minimal cycle orchestrator (one bounded cycle on seed domain) + mandatory human checkpoint; never headless",
+  "type": "code",
+  "priority": "high",
+  "domain": [
+    "software",
+    "ai-safety",
+    "knowledge-commons"
+  ],
+  "riskTier": "high",
+  "deliverable": "pr",
+  "tokenEstimate": "large",
+  "context": "The 'no headless run' refusal requires that every expansion round be gated by a human checkpoint with no continuous, unattended process. This safety-critical M0 task wires the first bounded cycle (plan -> gather -> verify -> synthesize -> ledger -> checkpoint) on the seed domain, halting at the checkpoint and requiring explicit human approval to advance, while honoring the budget governor and provenance rule. It emits no final answer because the frontier is non-empty.",
+  "objective": "Implement a minimal cycle orchestrator that runs one bounded cycle (plan -> gather -> verify -> synthesize -> ledger -> checkpoint) on the seed domain, halts at a mandatory human checkpoint with no auto-advance and no headless mode, publishes a coverage ledger, respects the budget and provenance rules, and emits no final answer.",
+  "acceptanceCriteria": [
+    "Runs one bounded cycle (plan -> gather -> verify -> synthesize -> ledger -> checkpoint) on the seed domain; halts at the checkpoint and requires explicit human approval to start the next cycle - no auto-advance and no headless mode",
+    "Emits no final answer (frontier non-empty); publishes a coverage ledger; respects the budget governor (cap-trip honored) and the provenance rule (no unsourced claim surfaced)",
+    "An audit log records that every expansion round was human-gated (checkpoint adherence = 100%)",
+    "Reviewed and signed off by the maintainer + gate reviewer (recorded)"
+  ],
+  "resources": [
+    "PLAN.md",
+    "tasks/atltuae-spec-000.json"
+  ],
+  "output": "packages/core/loop",
+  "outputLicense": "MIT"
+}

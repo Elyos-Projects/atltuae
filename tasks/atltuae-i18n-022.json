@@ -1,0 +1,34 @@
+{
+  "project": "atltuae",
+  "lane": "donated",
+  "urgent": false,
+  "status": "open",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "id": "atltuae-i18n-022",
+  "title": "Translate the public synthesis into additional languages (community-reviewed)",
+  "type": "writing",
+  "priority": "low",
+  "domain": [
+    "writing",
+    "i18n",
+    "knowledge-commons"
+  ],
+  "riskTier": "medium",
+  "deliverable": "translation",
+  "tokenEstimate": "medium",
+  "context": "Backlog: broaden reach by translating the public CC-BY synthesis into additional languages, each community-reviewed, with provenance preserved. The specific target languages are not yet enumerated (they depend on the secured audience/community), so this is a representative task that expands per-language once an audience and reviewers are confirmed - no languages are fabricated here.",
+  "objective": "Translate the published public synthesis into one additional language (representative; expands per-language on audience/reviewer confirmation), community-reviewed, preserving provenance and citations, and licensed source-compatibly (CC-BY-4.0, matching the CC-BY source).",
+  "acceptanceCriteria": [
+    "Translates the published synthesis into one target language with provenance and citations preserved intact",
+    "The translation is reviewed by a fluent community reviewer for accuracy and fidelity before publication",
+    "Licensed CC-BY-4.0 (source-compatible with the CC-BY-4.0 source synthesis); no relicensing of any source",
+    "Target language(s) are confirmed with the audience/community before fan-out; this row expands to one task per confirmed language (no languages fabricated in advance)"
+  ],
+  "resources": [
+    "PLAN.md",
+    "docs/synthesis/"
+  ],
+  "output": "docs/synthesis/i18n/<lang>/synthesis.md",
+  "outputLicense": "CC-BY-4.0"
+}

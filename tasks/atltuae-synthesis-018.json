@@ -1,0 +1,34 @@
+{
+  "project": "atltuae",
+  "lane": "donated",
+  "urgent": false,
+  "status": "open",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "id": "atltuae-synthesis-018",
+  "title": "Publish the ever-improving cited synthesis + coverage dashboard (CC-BY) with re-derivation guide",
+  "type": "writing",
+  "priority": "high",
+  "domain": [
+    "writing",
+    "knowledge-commons",
+    "provenance"
+  ],
+  "riskTier": "high",
+  "deliverable": "document",
+  "tokenEstimate": "large",
+  "context": "The whole engine exists to publish an honest, fully-cited synthesis plus a public coverage ledger - never a premature final answer. This M4 writing task publishes the synthesis and coverage dashboard as CC-BY-4.0 artifacts with full provenance and a re-derivation guide, asserting no final answer (frontier published non-empty), with any HIGH-tier surface carrying 'not advice' + recorded expert sign-off or withheld. No credentialed expert reviewer is yet secured for HIGH surfaces.",
+  "objective": "Publish the ever-improving cited synthesis and coverage dashboard as CC-BY-4.0 artifacts with full provenance and a re-derivation guide, asserting no final answer (frontier published non-empty), with HIGH-tier (health/legal/safety/financial) surfaces carrying 'not advice' + recorded expert sign-off or withheld.",
+  "acceptanceCriteria": [
+    "Publishes the cited synthesis + coverage ledger as CC-BY-4.0 artifacts with full provenance and the re-derivation guide; no final answer is asserted (frontier published non-empty)",
+    "Any HIGH-tier (health/legal/safety/financial) surface present carries 'not advice' + recorded expert sign-off, or is withheld",
+    "Reviewed and signed off by the maintainer + expert (for HIGH surfaces) (recorded)"
+  ],
+  "resources": [
+    "PLAN.md",
+    "packages/core/repro",
+    "packages/core/risk-router"
+  ],
+  "output": "docs/synthesis/ (CC-BY synthesis + coverage dashboard + re-derivation guide)",
+  "outputLicense": "CC-BY-4.0"
+}

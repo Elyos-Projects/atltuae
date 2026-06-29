@@ -1,0 +1,34 @@
+{
+  "project": "atltuae",
+  "lane": "donated",
+  "urgent": false,
+  "status": "open",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "id": "atltuae-license-014",
+  "title": "License gate: verify reuse terms before ingestion (open/PD/CC only); reject closed/ToS/controlled; share-alike lineage",
+  "type": "code",
+  "priority": "high",
+  "domain": [
+    "software",
+    "licensing",
+    "knowledge-commons",
+    "provenance"
+  ],
+  "riskTier": "high",
+  "deliverable": "pr",
+  "tokenEstimate": "medium",
+  "context": "The 'no closed/unlicensed source' refusal must be enforced before ingestion, not after. This safety-critical M3 task implements the license gate that verifies and records each source's reuse terms, rejects unknown/closed/paywalled/controlled-access/ToS-restricted sources (0-ingested target), and records share-alike (CC-BY-SA/ODbL) lineage so the synthesis license strategy can isolate and attribute share-alike sections.",
+  "objective": "Implement the pre-ingestion license gate: verify and record each source's reuse terms before ingestion, reject unknown/closed/paywalled/controlled-access/ToS-restricted sources (test asserts 0 ingested), and record per-source license lineage including share-alike (CC-BY-SA/ODbL) while respecting robots/ToS for fetching.",
+  "acceptanceCriteria": [
+    "Before ingestion, verifies and records each source's reuse terms; rejects unknown/closed/paywalled/controlled-access/ToS-restricted sources (test asserts 0 such sources ingested)",
+    "Records per-source license lineage incl. share-alike (CC-BY-SA/ODbL) so the synthesis license strategy can isolate/attribute share-alike sections; robots/ToS respected for fetching",
+    "Reviewed and signed off by the maintainer + gate reviewer (recorded)"
+  ],
+  "resources": [
+    "PLAN.md",
+    "packages/core/provenance"
+  ],
+  "output": "packages/core/license-gate",
+  "outputLicense": "MIT"
+}

@@ -1,0 +1,34 @@
+{
+  "project": "atltuae",
+  "lane": "donated",
+  "urgent": false,
+  "status": "open",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "id": "atltuae-federation-021",
+  "title": "Multi-engine federation (parallel domain engines sharing one ledger/provenance store)",
+  "type": "code",
+  "priority": "low",
+  "domain": [
+    "software",
+    "infrastructure",
+    "knowledge-commons"
+  ],
+  "riskTier": "medium",
+  "deliverable": "pr",
+  "tokenEstimate": "large",
+  "context": "Backlog (only after M5): scale breadth by running parallel domain engines that share one coverage ledger and provenance store, without relaxing any cap, gate, or refusal. This task scales the engine horizontally while preserving the four refusals and the budget discipline.",
+  "objective": "Design and implement multi-engine federation: parallel per-domain engines sharing a single coverage ledger and provenance store, scaling breadth without relaxing budget caps, gates, or refusals.",
+  "acceptanceCriteria": [
+    "Multiple parallel domain engines share one coverage ledger and one provenance store with consistent, de-duplicated state",
+    "Federation scales breadth without relaxing any per-cycle budget cap, gate, or refusal (each engine remains capped and human-gated)",
+    "Only pursued after M5 Definition of Shipped is met"
+  ],
+  "resources": [
+    "PLAN.md",
+    "packages/core/ledger",
+    "packages/core/provenance"
+  ],
+  "output": "packages/core/federation",
+  "outputLicense": "MIT"
+}

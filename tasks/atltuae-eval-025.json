@@ -1,0 +1,35 @@
+{
+  "project": "atltuae",
+  "lane": "donated",
+  "urgent": false,
+  "status": "open",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "id": "atltuae-eval-025",
+  "title": "Continuous verification/reproducibility eval dashboard across cycles",
+  "type": "code",
+  "priority": "low",
+  "domain": [
+    "software",
+    "verification",
+    "reproducibility",
+    "transparency"
+  ],
+  "riskTier": "medium",
+  "deliverable": "pr",
+  "tokenEstimate": "medium",
+  "context": "Backlog: track the engine's honesty/integrity metrics over time. This task builds a continuous eval dashboard that tracks provenance coverage, premature-conclusion incidents, budget adherence, closed-sources-ingested, planted-error detection, and reproducibility across cycles, so refusal/provenance integrity is monitored as the corpus grows.",
+  "objective": "Implement a continuous verification/reproducibility eval dashboard that tracks integrity metrics (provenance coverage, premature-conclusion incidents=0, budget adherence, closed-sources=0, planted-error detection rate, reproducibility) across cycles over time.",
+  "acceptanceCriteria": [
+    "Tracks integrity metrics across cycles: provenance coverage, premature-conclusion incidents (target 0), budget adherence, closed-sources ingested (target 0), planted-error detection rate, and reproducibility",
+    "Renders the metrics as a dashboard/time-series so regressions in refusal/provenance integrity are visible",
+    "Reuses the existing red-team and reproducibility eval harnesses rather than duplicating them"
+  ],
+  "resources": [
+    "PLAN.md",
+    "packages/core/redteam",
+    "packages/core/repro"
+  ],
+  "output": "packages/core/eval-dashboard",
+  "outputLicense": "MIT"
+}

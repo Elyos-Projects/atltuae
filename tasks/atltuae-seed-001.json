@@ -1,0 +1,35 @@
+{
+  "project": "atltuae",
+  "lane": "donated",
+  "urgent": false,
+  "status": "open",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "id": "atltuae-seed-001",
+  "title": "Seed-domain selection (scored vs. criteria; low-risk, source-rich) — gates later cycles",
+  "type": "research",
+  "priority": "high",
+  "domain": [
+    "research",
+    "knowledge-commons",
+    "methodology"
+  ],
+  "riskTier": "medium",
+  "deliverable": "document",
+  "tokenEstimate": "small",
+  "context": "ATLTUAE is a self-improving, perpetually-looping open research+analysis engine whose deliverable is an ever-improving fully-cited synthesis plus a public coverage ledger - never a premature final answer. Early cycles must be tractable and license-clean, so the engine needs one well-chosen seed domain before any cycle runs. This M0 research task scores candidate seed domains against explicit criteria so the first bounded cycle is source-rich, low-risk, and has a tractable taxonomy. No partner, steward, or credentialed expert reviewer is yet secured.",
+  "objective": "Produce a scored seed-domain selection memo that picks one starting domain for the first bounded cycle, evaluated against explicit criteria (source-rich, low-risk, tractable taxonomy, clear public value, open/PD/CC source availability), with the rationale and runner-up alternatives recorded.",
+  "acceptanceCriteria": [
+    "Defines the scoring criteria (source-rich, low-risk per the domain-risk policy, tractable taxonomy, public value, availability of open/PD/CC sources) and scores at least three candidate domains against them",
+    "Selects one seed domain with recorded rationale, and lists runner-up alternatives that can be promoted later",
+    "Confirms the selected domain is NOT health/legal/safety/financial high-risk (or, if it touches them, routes those surfaces through the 'not advice' + expert-review policy)",
+    "Confirms sufficient open/PD/CC license-clean source availability for at least one bounded cycle on the chosen domain"
+  ],
+  "resources": [
+    "PLAN.md",
+    "TASKS.md",
+    "tasks/atltuae-spec-000.json"
+  ],
+  "output": "docs/seed-domain-selection.md",
+  "outputLicense": "CC-BY-4.0"
+}

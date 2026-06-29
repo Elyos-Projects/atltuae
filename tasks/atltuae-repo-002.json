@@ -1,0 +1,34 @@
+{
+  "project": "atltuae",
+  "lane": "donated",
+  "urgent": false,
+  "status": "open",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "id": "atltuae-repo-002",
+  "title": "Monorepo + pnpm + TS/ESM + CI (build/test/lint) skeleton; agent-neutral core + adapters seam",
+  "type": "code",
+  "priority": "high",
+  "domain": [
+    "software",
+    "infrastructure",
+    "tooling"
+  ],
+  "riskTier": "low",
+  "deliverable": "pr",
+  "tokenEstimate": "small",
+  "context": "ATLTUAE's spine (provenance store, budget governor, coverage ledger, cycle orchestrator) needs a foundation to build on. Per Elyos architecture rules the core must be agent-neutral with any vendor/agent-specific (Claude/Anthropic) logic isolated behind an adapters seam, and funded execution lives only in a runner package. This M0 task sets up the monorepo, toolchain, and green CI so every later task lands against a passing build/test/lint pipeline.",
+  "objective": "Stand up the monorepo skeleton: pnpm workspaces, TypeScript/ESM, build/test/lint scripts, and CI that runs them green, with an agent-neutral core package and an adapters seam for vendor-specific (LLM client) logic.",
+  "acceptanceCriteria": [
+    "pnpm workspace with TypeScript + ESM configured; `pnpm build && pnpm test && pnpm lint` all pass locally and in CI",
+    "Agent-neutral core package present with no vendor/agent-specific code; an adapters/ seam exists where the LLM client (Claude/Anthropic) specifics will live",
+    "CI workflow runs build/test/lint on every push/PR and is green on the initial skeleton",
+    "Commits are DCO signed-off; repository conventions (lint, formatting) documented in the repo"
+  ],
+  "resources": [
+    "PLAN.md",
+    "CLAUDE.md"
+  ],
+  "output": "packages/ (monorepo skeleton) + CI workflow",
+  "outputLicense": "MIT"
+}

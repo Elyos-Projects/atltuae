@@ -1,0 +1,34 @@
+{
+  "project": "atltuae",
+  "lane": "donated",
+  "urgent": false,
+  "status": "open",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "id": "atltuae-checkpoint-011",
+  "title": "Human-checkpoint workflow (approve/modify/halt) with cycle diff + coverage delta + cost summary",
+  "type": "code",
+  "priority": "high",
+  "domain": [
+    "software",
+    "ai-safety",
+    "human-in-the-loop"
+  ],
+  "riskTier": "high",
+  "deliverable": "pr",
+  "tokenEstimate": "medium",
+  "context": "The human gate must be informed, not a rubber stamp. This safety-critical M2 task builds the checkpoint workflow that presents a cycle diff, coverage delta, and cost summary so a human can approve, modify, or halt the next round, with no round advancing without an explicit, logged human action.",
+  "objective": "Implement the human-checkpoint workflow: at each checkpoint a human can approve / modify / halt the next round, presented with a cycle diff, coverage delta, and cost summary, where no round advances without an explicit, logged human decision (no auto-advance).",
+  "acceptanceCriteria": [
+    "At each checkpoint a human can approve / modify / halt the next round; the workflow presents a cycle diff, coverage delta, and cost summary for an informed decision",
+    "No round advances without an explicit human action (no auto-advance); the decision is logged",
+    "Reviewed and signed off by the maintainer + gate reviewer (recorded)"
+  ],
+  "resources": [
+    "PLAN.md",
+    "packages/core/loop",
+    "packages/core/planner"
+  ],
+  "output": "packages/core/checkpoint",
+  "outputLicense": "MIT"
+}

@@ -1,0 +1,38 @@
+{
+  "project": "atltuae",
+  "lane": "donated",
+  "urgent": false,
+  "status": "open",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "id": "atltuae-risk-013",
+  "title": "Domain-risk router: tag health/legal/safety/financial -> \"not advice\" + expert-review flag; non-partisan civic handling",
+  "type": "code",
+  "priority": "high",
+  "domain": [
+    "software",
+    "ai-safety",
+    "risk-tier",
+    "health",
+    "legal"
+  ],
+  "riskTier": "high",
+  "deliverable": "pr",
+  "tokenEstimate": "medium",
+  "context": "Because ATLTUAE covers all domains, it will inevitably touch health/legal/safety/financial topics, which Elyos rules require be handled as 'informational, not advice' with credentialed-expert review before publication. This safety-critical M3 task implements the domain-risk router that tags those surfaces HIGH, withholds them absent expert sign-off, and handles civic/contested topics non-partisan. No credentialed expert reviewer is yet secured.",
+  "objective": "Implement the domain-risk router: classify each claim/surface into a risk domain, tag health/legal/safety/financial HIGH with 'informational, not advice' and a credentialed-expert-review flag (withholding the surface absent expert sign-off), and handle civic/contested topics non-partisan, verified on a civic test set.",
+  "acceptanceCriteria": [
+    "Classifies each claim/surface into a risk domain; health/legal/safety/financial are tagged HIGH, labeled 'informational, not advice', and flagged for credentialed-expert review before appearing in a published synthesis (no expert sign-off -> that surface is withheld)",
+    "Civic/contested topics handled non-partisan (sourced positions mapped, not advocated); verified on a civic test set",
+    "Never authors or surfaces refused content (medical/legal/financial/safety advice, eligibility determinations, prognosis); such requests are routed to withholding + expert flag, not answered",
+    "Reviewed and signed off by the expert + gate reviewer (recorded)"
+  ],
+  "resources": [
+    "PLAN.md",
+    "CLAUDE.md",
+    "packages/core/gates",
+    "packages/core/verify"
+  ],
+  "output": "packages/core/risk-router",
+  "outputLicense": "MIT"
+}
