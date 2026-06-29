@@ -1,0 +1,36 @@
+{
+  "project": "atltuae",
+  "lane": "donated",
+  "urgent": false,
+  "status": "open",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "id": "atltuae-verify-008",
+  "title": "Adversarial verification layer + contradiction detection + multi-source rule for high-stakes claims",
+  "type": "code",
+  "priority": "high",
+  "domain": [
+    "software",
+    "verification",
+    "ai-safety",
+    "research"
+  ],
+  "riskTier": "high",
+  "deliverable": "pr",
+  "tokenEstimate": "large",
+  "context": "'Verified' must not be confused with 'true': ATLTUAE adversarially checks each claim, surfaces contradictions rather than hiding them, and requires multiple independent license-clean sources for high-stakes claims before they may appear even as informational. This safety-critical M1 task reuses the existing deep-research harness pattern (fan-out -> fetch -> adversarially verify -> synthesize) rather than inventing a new per-claim verifier.",
+  "objective": "Implement the adversarial verification layer: each claim is steel-manned and checked against disconfirming sources (not accepted on a single agreeing source), contradictions across the claim graph are surfaced, and high-stakes claims require multiple independent license-clean sources before surfacing, reusing the deep-research fan-out/fetch/verify/synthesize pattern.",
+  "acceptanceCriteria": [
+    "Each claim is adversarially checked (steel-man + seek disconfirming sources), not accepted on a single agreeing source; contradictions across the claim graph are surfaced, not hidden",
+    "High-stakes claims require multiple independent, license-clean sources before they may be surfaced even as 'informational'",
+    "Reuses the deep-research harness pattern (fan-out -> fetch -> adversarially verify -> synthesize)",
+    "Reviewed and signed off by the gate reviewer (recorded)"
+  ],
+  "resources": [
+    "PLAN.md",
+    "tasks/atltuae-spec-000.json",
+    "packages/core/provenance"
+  ],
+  "output": "packages/core/verify",
+  "outputLicense": "MIT"
+}

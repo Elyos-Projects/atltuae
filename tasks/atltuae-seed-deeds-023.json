@@ -1,0 +1,33 @@
+{
+  "project": "atltuae",
+  "lane": "donated",
+  "urgent": false,
+  "status": "open",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "id": "atltuae-seed-deeds-023",
+  "title": "Use coverage gaps to auto-propose new Elyos good-deed projects",
+  "type": "research",
+  "priority": "low",
+  "domain": [
+    "research",
+    "knowledge-commons",
+    "meta"
+  ],
+  "riskTier": "low",
+  "deliverable": "document",
+  "tokenEstimate": "medium",
+  "context": "Backlog: ATLTUAE as a meta-tool. Its coverage ledger's persistent gaps are signals of where the knowledge commons most needs work, which can seed new Elyos good-deed projects. This research task mines coverage gaps to auto-propose candidate deeds for human review.",
+  "objective": "Build a method that reads the coverage ledger's persistent gaps and auto-proposes candidate new Elyos good-deed projects (as human-reviewed proposals), turning the engine's map of its own ignorance into a deed-seeding signal.",
+  "acceptanceCriteria": [
+    "Mines the coverage ledger for persistent/high-value gaps and proposes candidate good-deed projects with rationale",
+    "Proposals are human-reviewed before any project is created (no auto-creation)",
+    "Proposals respect Elyos refusal guardrails (no malware/surveillance/disinformation/for-profit-primary deeds)"
+  ],
+  "resources": [
+    "PLAN.md",
+    "packages/core/ledger"
+  ],
+  "output": "docs/seeded-deed-proposals.md",
+  "outputLicense": "CC-BY-4.0"
+}

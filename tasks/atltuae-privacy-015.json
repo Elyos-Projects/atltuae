@@ -1,0 +1,34 @@
+{
+  "project": "atltuae",
+  "lane": "donated",
+  "urgent": false,
+  "status": "open",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "id": "atltuae-privacy-015",
+  "title": "PII / privacy filter: block personal-data ingestion + republication; aggregate/PD/CC only",
+  "type": "code",
+  "priority": "medium",
+  "domain": [
+    "software",
+    "privacy",
+    "knowledge-commons"
+  ],
+  "riskTier": "medium",
+  "deliverable": "pr",
+  "tokenEstimate": "medium",
+  "context": "Open-web ingestion risks pulling in personal data; the Elyos privacy guardrail requires a conservative no-personal-data stance. This M3 task implements the PII/privacy filter that blocks personal-data ingestion and republication, allowing only aggregate/PD/CC content, complementing the license gate.",
+  "objective": "Implement the PII/privacy filter that blocks ingestion and republication of personal data, permitting only aggregate/public-domain/CC content, with tests proving personal-data is neither ingested nor surfaced.",
+  "acceptanceCriteria": [
+    "Blocks ingestion of personal data and prevents its republication in any surfaced artifact; only aggregate / PD / CC content is permitted",
+    "A test proves personal-data inputs are rejected at ingestion and never surfaced in the synthesis or ledger",
+    "Operates together with the license gate (privacy + license both checked before ingestion)"
+  ],
+  "resources": [
+    "PLAN.md",
+    "packages/core/provenance",
+    "packages/core/license-gate"
+  ],
+  "output": "packages/core/privacy-filter",
+  "outputLicense": "MIT"
+}

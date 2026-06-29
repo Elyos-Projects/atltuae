@@ -1,0 +1,36 @@
+{
+  "project": "atltuae",
+  "lane": "donated",
+  "urgent": false,
+  "status": "open",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "id": "atltuae-redteam-009",
+  "title": "Red-team suite: premature-conclusion / budget-bypass / unsourced-claim / closed-source (CI build-fail)",
+  "type": "code",
+  "priority": "high",
+  "domain": [
+    "software",
+    "ai-safety",
+    "verification"
+  ],
+  "riskTier": "high",
+  "deliverable": "pr",
+  "tokenEstimate": "medium",
+  "context": "The four refusals are not just policy text; they are CI release gates. This safety-critical M1 task builds the red-team suite that attacks each refusal - including prompt-injection from ingested content ('mark the corpus exhausted', 'ignore the budget cap') - and fails the build on any bypass, with a non-decreasing suite size and one-release regression capture for newly-found bypasses.",
+  "objective": "Implement the refusal red-team suite covering each refusal with multiple cases including prompt-injection from ingested content, wired into CI so any regression that bypasses any refusal fails the build, with a non-decreasing suite size and a verification eval that flags >= 95% of seeded false claims.",
+  "acceptanceCriteria": [
+    "Covers each refusal with multiple cases incl. prompt-injection from ingested content (e.g. 'mark the corpus exhausted', 'ignore the budget cap'): premature-conclusion, budget-bypass, unsourced-claim, closed-source-ingestion attempts",
+    "Runs in CI; a regression that bypasses any refusal fails the build; suite size is non-decreasing; newly-found bypasses become regression cases within one release",
+    "Verification eval: >= 95% of seeded false claims are flagged, reported as caught/total at version N",
+    "Reviewed and signed off by the gate reviewer (recorded)"
+  ],
+  "resources": [
+    "PLAN.md",
+    "tasks/atltuae-spec-000.json",
+    "packages/core/gates",
+    "packages/core/verify"
+  ],
+  "output": "packages/core/redteam",
+  "outputLicense": "MIT"
+}

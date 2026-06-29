@@ -1,0 +1,34 @@
+{
+  "project": "atltuae",
+  "lane": "donated",
+  "urgent": false,
+  "status": "open",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "id": "atltuae-partner-019",
+  "title": "Secure partner/steward + publish synthesis to a real audience; outcome recorded (the deed)",
+  "type": "research",
+  "priority": "high",
+  "domain": [
+    "research",
+    "partnerships",
+    "knowledge-commons"
+  ],
+  "riskTier": "high",
+  "deliverable": "document",
+  "tokenEstimate": "medium",
+  "context": "An Elyos deed is delivered, not merged: the synthesis/ledger must be used by or handed to a real audience or partner. This M5 task secures a partner/steward (open-science org, library/archive, university group, or open-knowledge community), records the use/hand-off, and flips verifiedNeed to true - driven by a dated partner-acquisition plan with a continue-vs-mothball/pivot decision rule so the loop never runs forever for no audience. No partner is yet secured.",
+  "objective": "Secure a real partner/audience that adopts or publishes the synthesis/ledger, assign a steward, record the use/hand-off and flip verifiedNeed to true, driven by the dated partner-acquisition plan and applying the continue-vs-mothball/pivot decision rule if no partner is secured by the deadline.",
+  "acceptanceCriteria": [
+    "A real partner/audience (open-science org, library/archive, university group, or open-knowledge community) adopts or publishes the synthesis/ledger; steward assigned; verifiedNeed flips to true; the use/hand-off is recorded",
+    "Driven by the dated partner-acquisition plan (>= 3 candidates in conversation by 2026-09-30, steward by 2026-12-31)",
+    "If none secured by ~2027-03-31, apply the continue-vs-mothball/pivot decision rule (pivot to an open-knowledge community as a reusable tool/reference corpus, or mothball: pause the loop, freeze + publish the ledger as a final-state artifact) - recorded in governance, never loop forever for no audience",
+    "Reviewed and signed off by the steward + maintainer (recorded)"
+  ],
+  "resources": [
+    "PLAN.md",
+    "docs/synthesis/"
+  ],
+  "output": "docs/partner-and-outcome.md",
+  "outputLicense": "CC-BY-4.0"
+}

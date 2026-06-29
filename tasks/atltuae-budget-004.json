@@ -1,0 +1,35 @@
+{
+  "project": "atltuae",
+  "lane": "donated",
+  "urgent": false,
+  "status": "open",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "id": "atltuae-budget-004",
+  "title": "Budget governor: hard per-cycle caps (tokens/USD/sources/wall-clock), fail-closed stop",
+  "type": "code",
+  "priority": "high",
+  "domain": [
+    "software",
+    "budget",
+    "ai-safety"
+  ],
+  "riskTier": "high",
+  "deliverable": "pr",
+  "tokenEstimate": "medium",
+  "context": "The 'perpetual loop' is only safe because every cycle is bounded by a hard budget cap; Elyos rules forbid uncapped or headless autonomous spend. This safety-critical M0 subsystem meters every LLM/fetch call against the remaining per-cycle budget and stops fail-closed when a cap would be exceeded, with no in-cycle override path. A bypass would break the budget refusal, so it is high risk-tier and gate-reviewed.",
+  "objective": "Implement the budget governor enforcing hard per-cycle caps on tokens, USD, source count, and wall-clock, metering every LLM/fetch call and refusing the call that would exceed the cap, stopping the cycle fail-closed with partial work persisted and a truncation note to the ledger, with no in-cycle override.",
+  "acceptanceCriteria": [
+    "Enforces per-cycle caps on tokens, USD, source count, and wall-clock; meters every LLM/fetch call against remaining budget and refuses the call that would exceed it",
+    "On cap trip, the cycle stops fail-closed with partial work persisted and a truncation note written to the ledger; a cap-trip test proves the stop occurs and nothing runs past the cap",
+    "No in-cycle override path; raising a cap is a between-cycle, governance-logged human action",
+    "Reviewed and signed off by the gate reviewer (recorded)"
+  ],
+  "resources": [
+    "PLAN.md",
+    "tasks/atltuae-spec-000.json",
+    "packages/runner"
+  ],
+  "output": "packages/core/budget",
+  "outputLicense": "MIT"
+}

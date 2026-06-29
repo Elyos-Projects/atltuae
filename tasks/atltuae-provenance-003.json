@@ -1,0 +1,36 @@
+{
+  "project": "atltuae",
+  "lane": "donated",
+  "urgent": false,
+  "status": "open",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "id": "atltuae-provenance-003",
+  "title": "Provenance store + \"no source, no claim\" enforcement (content-addressed; license + verify status)",
+  "type": "code",
+  "priority": "high",
+  "domain": [
+    "software",
+    "provenance",
+    "knowledge-commons",
+    "ai-safety"
+  ],
+  "riskTier": "high",
+  "deliverable": "pr",
+  "tokenEstimate": "large",
+  "context": "One of ATLTUAE's four refusals is 'no unsourced claim': every surfaced claim must carry verifiable, license-clean provenance. This safety-critical M0 subsystem implements the provenance store so claims are content-addressed, re-derivable, and tamper-evident, and so the synthesis layer physically cannot surface a claim that lacks provenance. A bypass here would break a refusal, so it is high risk-tier and gate-reviewed.",
+  "objective": "Implement the provenance store and 'no source, no claim' enforcement: every claim links to one or more content-addressed Sources (identifier/URL, title, license + verified reuse status, retrieval date, content hash, derivation/query trail) and a verification status, with a citation-coverage test that fails the build on any unsourced surfaced claim.",
+  "acceptanceCriteria": [
+    "Every claim links to >= 1 Source (identifier/URL, title, license + verified reuse status, retrieval date, content hash, derivation/query trail) and a verification status",
+    "The synthesis layer cannot surface a claim lacking provenance; a citation-coverage test fails the build if any surfaced claim is unsourced",
+    "Sources and claims are content-addressed so a claim is re-derivable (reproducibility foundation); the provenance chain is tamper-evident",
+    "Reviewed and signed off by the gate reviewer (recorded)"
+  ],
+  "resources": [
+    "PLAN.md",
+    "tasks/atltuae-spec-000.json",
+    "packages/schema/src/schemas.ts"
+  ],
+  "output": "packages/core/provenance",
+  "outputLicense": "MIT"
+}

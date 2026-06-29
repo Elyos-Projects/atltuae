@@ -288,7 +288,7 @@ documented cadence and governed change process. *(Gated on a secured partner —
 | ID | Title | Type | Size | Risk | Deliverable | Notes |
 |---|---|---|---|---|---|---|
 | atltuae-federation-021 | Multi-engine federation (parallel domain engines sharing one ledger/provenance store) | code | large | medium | pr | Only after M5; scales breadth without relaxing caps/gates |
-| atltuae-i18n-022 | Translate the public synthesis into additional languages (community-reviewed) | writing | medium | medium | translation | Per-language review; provenance preserved |
+| atltuae-i18n-022 | Translate the public synthesis into additional languages (community-reviewed) | writing | medium | medium | translation | Per-language review; provenance preserved. **Fan-out note:** target languages are not yet enumerated (depend on the secured audience/community), so this is one **representative** task (`type: writing`, `deliverable: translation`); it expands to one task per **confirmed** language once an audience + fluent reviewers exist — no languages fabricated in advance. License is source-compatible (CC-BY-4.0 source → CC-BY-4.0 translation; never relicense a copyrighted source). |
 | atltuae-seed-deeds-023 | Use coverage gaps to auto-propose new Elyos good-deed projects | research | medium | low | document | ATLTUAE as a meta-tool seeding other deeds |
 | atltuae-dataset-024 | Publish the claim/provenance graph as a reusable open dataset | data | medium | medium | dataset | CC-BY-4.0; datasheet + license lineage |
 | atltuae-eval-025 | Continuous verification/reproducibility eval dashboard across cycles | code | medium | medium | pr | Tracks provenance/refusal integrity over time |
@@ -442,3 +442,45 @@ to the PLAN.md and TASKS.md above. Each is concrete and reflected in the documen
 **Sign-off:** Plan is internally consistent, schema-aligned, and honest about its unknowns. Ready for
 maintainer + gate-reviewer review. Remaining blockers are the human decisions above, not gaps in the
 plan.
+
+---
+
+## Generated task index
+
+Every backlog row above now has a schema-valid, executable `tasks/<id>.json` (validated against
+`packages/schema` taskSchema: filenames match ids, no duplicates, no extra keys). 26 task files total
+(1 pre-existing seed + 25 generated). All are `status: open`, `verifiedNeed: false`,
+`requestor: "TO BE SECURED"` (no partner secured). One representative task per row — **no fan-out**,
+because no dimension (seed domain, target languages, datasets) is yet enumerated in PLAN.md/TASKS.md;
+the i18n row expands per confirmed language later (see its fan-out note). `atltuae-cost-017` is the
+single `lane: funded` task and carries `fundedBudgetUsd: 25` (a conservative placeholder; the real
+per-cycle USD cap is a governance decision flagged in Open questions).
+
+| ID | Milestone | Type | Lane | Risk | Deliverable | License |
+|---|---|---|---|---|---|---|
+| atltuae-spec-000 | M0 | design-spec | donated | high | document | CC-BY-4.0 |
+| atltuae-seed-001 | M0 | research | donated | medium | document | CC-BY-4.0 |
+| atltuae-repo-002 | M0 | code | donated | low | pr | MIT |
+| atltuae-provenance-003 | M0 | code | donated | high | pr | MIT |
+| atltuae-budget-004 | M0 | code | donated | high | pr | MIT |
+| atltuae-ledger-005 | M0 | code | donated | medium | pr | MIT |
+| atltuae-loop-006 | M0 | code | donated | high | pr | MIT |
+| atltuae-gates-007 | M1 | code | donated | high | pr | MIT |
+| atltuae-verify-008 | M1 | code | donated | high | pr | MIT |
+| atltuae-redteam-009 | M1 | code | donated | high | pr | MIT |
+| atltuae-planner-010 | M2 | code | donated | medium | pr | MIT |
+| atltuae-checkpoint-011 | M2 | code | donated | high | pr | MIT |
+| atltuae-improve-012 | M2 | code | donated | high | pr | MIT |
+| atltuae-risk-013 | M3 | code | donated | high | pr | MIT |
+| atltuae-license-014 | M3 | code | donated | high | pr | MIT |
+| atltuae-privacy-015 | M3 | code | donated | medium | pr | MIT |
+| atltuae-repro-016 | M4 | code | donated | high | pr | MIT |
+| atltuae-cost-017 | M4 | code | **funded** | medium | pr | MIT |
+| atltuae-synthesis-018 | M4 | writing | donated | high | document | CC-BY-4.0 |
+| atltuae-partner-019 | M5 | research | donated | high | document | CC-BY-4.0 |
+| atltuae-ops-020 | M5 | maintenance | donated | medium | document | CC-BY-4.0 |
+| atltuae-federation-021 | Backlog | code | donated | medium | pr | MIT |
+| atltuae-i18n-022 | Backlog | writing | donated | medium | translation | CC-BY-4.0 |
+| atltuae-seed-deeds-023 | Backlog | research | donated | low | document | CC-BY-4.0 |
+| atltuae-dataset-024 | Backlog | data | donated | medium | dataset | CC-BY-4.0 |
+| atltuae-eval-025 | Backlog | code | donated | medium | pr | MIT |

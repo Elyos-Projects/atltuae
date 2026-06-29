@@ -1,0 +1,33 @@
+{
+  "project": "atltuae",
+  "lane": "donated",
+  "urgent": false,
+  "status": "open",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "id": "atltuae-ops-020",
+  "title": "Ops runbook + maintenance rotation + cycle cadence + governed process for community domains & cap/gate changes",
+  "type": "maintenance",
+  "priority": "medium",
+  "domain": [
+    "maintenance",
+    "governance",
+    "operations"
+  ],
+  "riskTier": "medium",
+  "deliverable": "document",
+  "tokenEstimate": "medium",
+  "context": "A sustainable deed needs a documented operating discipline: how to run a cycle, respond to incidents, re-verify sources, and - critically - the governed process for any budget-cap/gate/refusal change (human + governance only, never engine self-modified). This M5 task writes the ops runbook, names a maintenance rotation, and documents the (non-continuous) cycle cadence and the governance process for community-proposed domains.",
+  "objective": "Write the ops runbook and governance documentation: deploy, running a cycle, incident response, source re-verification, fail-closed budget behavior, a named maintenance rotation, a documented non-continuous cycle cadence, and the governed process for community-proposed domains and any budget-cap/gate/refusal change.",
+  "acceptanceCriteria": [
+    "Runbook covers deploy, running a cycle, incident response, source re-verification, and the fail-closed budget behavior; names a maintenance rotation; documents a cycle cadence (not continuous)",
+    "Documents the governed process for community-proposed domains and for any budget-cap/gate/refusal change (human + governance only; never engine self-modified)",
+    "Reviewed and signed off by the maintainer + steward (recorded)"
+  ],
+  "resources": [
+    "PLAN.md",
+    "docs/partner-and-outcome.md"
+  ],
+  "output": "docs/ops-runbook.md",
+  "outputLicense": "CC-BY-4.0"
+}

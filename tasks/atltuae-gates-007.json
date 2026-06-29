@@ -1,0 +1,34 @@
+{
+  "project": "atltuae",
+  "lane": "donated",
+  "urgent": false,
+  "status": "open",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "id": "atltuae-gates-007",
+  "title": "Coverage gate + verification gate (dual \"exhausted?\"; default fail-closed; sole conclusion arbiter)",
+  "type": "code",
+  "priority": "high",
+  "domain": [
+    "software",
+    "ai-safety",
+    "verification"
+  ],
+  "riskTier": "high",
+  "deliverable": "pr",
+  "tokenEstimate": "large",
+  "context": "The 'no premature conclusion' refusal is enforced by a dual gate: only when both the coverage gate and the verification gate report the corpus exhausted may a final answer be emitted - which, across all domains, is effectively never. This safety-critical M1 task implements that dual gate as the sole conclusion arbiter, defaulting fail-closed to 'not exhausted' so the failure mode is over-researching, never over-concluding.",
+  "objective": "Implement the dual coverage + verification gate as the sole path to a final answer: the coverage gate reports exhausted only with no open frontier nodes and no new sources across K consecutive cycles; the verification gate reports exhausted only with all claims verified, no unresolved contradictions, and reproducibility >= threshold; the gate defaults fail-closed to 'not exhausted'.",
+  "acceptanceCriteria": [
+    "Coverage gate reports 'exhausted' only if there are no open frontier nodes AND no new sources discovered across K consecutive cycles (K parameterized + governance-set)",
+    "Verification gate reports 'exhausted' only if all claims verified, no unresolved contradictions, and reproducibility >= threshold",
+    "The gate is the only path to a final answer, defaults fail-closed to 'not exhausted', and treats any missing data / gate error / ambiguity as 'not exhausted' (no final answer)",
+    "Reviewed and signed off by the gate reviewer + maintainer (recorded)"
+  ],
+  "resources": [
+    "PLAN.md",
+    "tasks/atltuae-spec-000.json"
+  ],
+  "output": "packages/core/gates",
+  "outputLicense": "MIT"
+}

@@ -1,0 +1,34 @@
+{
+  "project": "atltuae",
+  "lane": "donated",
+  "urgent": false,
+  "status": "open",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "id": "atltuae-improve-012",
+  "title": "Gated self-improvement: engine proposes taxonomy/method/prompt diffs; human-approved; cannot touch budget/gates/refusals",
+  "type": "code",
+  "priority": "high",
+  "domain": [
+    "software",
+    "ai-safety",
+    "methodology"
+  ],
+  "riskTier": "high",
+  "deliverable": "pr",
+  "tokenEstimate": "large",
+  "context": "The difference between 'self-improving' and 'self-unbounding' is that ATLTUAE may improve quality (taxonomy, retrieval/verification methods, prompts) but provably cannot modify its own budget caps, gates, or refusal rules - those are governance-controlled and server-enforced. This safety-critical M2 task implements gated self-improvement with human-approved diffs and a red-team case proving the off-limits guarantee.",
+  "objective": "Implement gated self-improvement: the engine proposes reviewable taxonomy/retrieval/verification/prompt diffs with rationale, applied only after human approval at a checkpoint, and is provably unable (server-enforced + red-team-covered) to propose or apply changes to budget caps, gates, or refusal rules.",
+  "acceptanceCriteria": [
+    "The engine may propose improvements to taxonomy, retrieval/verification methods, and prompts, each as a reviewable diff + rationale, applied only after human approval at a checkpoint",
+    "The engine provably cannot propose or apply changes to budget caps, gates, or refusal rules (enforced server-side; covered by a red-team case) - self-improvement is quality-only",
+    "Reviewed and signed off by the gate reviewer + maintainer (recorded)"
+  ],
+  "resources": [
+    "PLAN.md",
+    "packages/core/checkpoint",
+    "packages/core/redteam"
+  ],
+  "output": "packages/core/improve",
+  "outputLicense": "MIT"
+}

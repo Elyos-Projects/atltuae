@@ -1,0 +1,36 @@
+{
+  "project": "atltuae",
+  "lane": "funded",
+  "urgent": false,
+  "status": "open",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "id": "atltuae-cost-017",
+  "title": "Public cost-ledger renderer for funded cycles (spend vs. cap; 0 over-cap) — funded-lane demo",
+  "type": "code",
+  "fundedBudgetUsd": 25,
+  "priority": "medium",
+  "domain": [
+    "software",
+    "budget",
+    "transparency"
+  ],
+  "riskTier": "medium",
+  "deliverable": "pr",
+  "tokenEstimate": "small",
+  "context": "ATLTUAE is donated-lane by default, but funded cycles are allowed with a hard per-cycle cap and a public cost ledger. This M4 task is the funded-lane demo (lane: funded, carrying fundedBudgetUsd) that renders a public cost ledger reconciling per-cycle USD spend against the hard cap with 0 over-cap cycles and no secrets in the ledger. The concrete USD cap is a governance decision; the demo cap here is a conservative placeholder to be ratified.",
+  "objective": "Implement the public cost-ledger renderer for funded cycles: render per-cycle USD spend vs. the hard cap, reconciled against the budget governor, with 0 over-cap cycles and no secrets/credentials in the ledger; this task runs in the funded lane via packages/runner under a hard fundedBudgetUsd cap.",
+  "acceptanceCriteria": [
+    "For funded cycles, renders a public cost ledger: per-cycle USD spend vs. the hard cap, reconciled against the budget governor; 0 over-cap cycles",
+    "No secrets/credentials appear in the ledger or any committed artifact",
+    "Runs in the funded lane only via packages/runner under the declared hard fundedBudgetUsd cap (never exceeding escrow)",
+    "Reviewed and signed off by the gate reviewer + maintainer (recorded)"
+  ],
+  "resources": [
+    "PLAN.md",
+    "packages/core/budget",
+    "packages/runner"
+  ],
+  "output": "packages/core/cost-ledger",
+  "outputLicense": "MIT"
+}

@@ -1,0 +1,34 @@
+{
+  "project": "atltuae",
+  "lane": "donated",
+  "urgent": false,
+  "status": "open",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "id": "atltuae-ledger-005",
+  "title": "Coverage ledger schema + public renderer (taxonomy; covered/partial/missing; non-empty frontier)",
+  "type": "code",
+  "priority": "high",
+  "domain": [
+    "software",
+    "knowledge-commons",
+    "provenance"
+  ],
+  "riskTier": "medium",
+  "deliverable": "pr",
+  "tokenEstimate": "medium",
+  "context": "ATLTUAE's deliverable is the cited synthesis plus a public ledger of its own ignorance; the coverage ledger makes the engine's gaps as visible as its knowledge. This M0 subsystem defines the ledger schema (a taxonomy with covered/partial/missing status and an explicit, non-empty frontier) and a public renderer so each cycle publishes an honest coverage map.",
+  "objective": "Implement the coverage-ledger schema and its public renderer: a domain taxonomy with covered/partial/missing status per node and an explicit frontier that stays non-empty until exhaustion is proven, rendered as a public artifact each cycle.",
+  "acceptanceCriteria": [
+    "Defines a coverage-ledger schema: a taxonomy of nodes each marked covered / partial / missing, with an explicit frontier list",
+    "The frontier is always non-empty until exhaustion is proven, making the engine's ignorance visible alongside its knowledge",
+    "A public renderer emits the ledger as a human-readable artifact each cycle (covered/partial/missing + frontier)",
+    "Ledger entries reference provenance so coverage claims are themselves traceable"
+  ],
+  "resources": [
+    "PLAN.md",
+    "tasks/atltuae-spec-000.json"
+  ],
+  "output": "packages/core/ledger",
+  "outputLicense": "MIT"
+}

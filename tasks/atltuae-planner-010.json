@@ -1,0 +1,34 @@
+{
+  "project": "atltuae",
+  "lane": "donated",
+  "urgent": false,
+  "status": "open",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "id": "atltuae-planner-010",
+  "title": "Expansion planner: select next-cycle breadth + depth targets from coverage gaps, with per-target budget",
+  "type": "code",
+  "priority": "medium",
+  "domain": [
+    "software",
+    "knowledge-commons",
+    "methodology"
+  ],
+  "riskTier": "medium",
+  "deliverable": "pr",
+  "tokenEstimate": "medium",
+  "context": "To broaden coverage cycle over cycle, ATLTUAE needs a planner that reads the coverage ledger and proposes the next cycle's work without ever proposing to conclude. This M2 task selects breadth (new nodes) and depth (under-covered nodes) targets, each with an estimated budget that fits within the per-cycle cap, keeping the frontier explicit and non-empty.",
+  "objective": "Implement the expansion planner that reads the coverage ledger and proposes next-cycle breadth (new nodes) and depth (under-covered nodes) targets, each with an estimated per-target budget that fits within the per-cycle cap, never proposing to conclude.",
+  "acceptanceCriteria": [
+    "Reads the coverage ledger and proposes next-cycle breadth (new nodes) + depth (under-covered nodes) targets, each with an estimated budget that fits within the per-cycle cap",
+    "Never proposes concluding; the frontier remains explicit and non-empty",
+    "Proposed targets are presented in a reviewable form for the human checkpoint to approve/modify"
+  ],
+  "resources": [
+    "PLAN.md",
+    "packages/core/ledger",
+    "packages/core/gates"
+  ],
+  "output": "packages/core/planner",
+  "outputLicense": "MIT"
+}
