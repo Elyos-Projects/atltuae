@@ -1,0 +1,37 @@
+{
+  "id": "atltuae-quality-coverage-031",
+  "title": "Quality-weighted coverage floor: covered status requires depth x verification x source-independence above threshold (breadth cannot be bought cheaply)",
+  "project": "atltuae",
+  "type": "code",
+  "lane": "donated",
+  "priority": "high",
+  "domain": ["software", "verification", "knowledge-commons", "ai-safety"],
+  "riskTier": "high",
+  "urgent": false,
+  "deliverable": "pr",
+  "tokenEstimate": "medium",
+  "status": "open",
+  "context": "PLAN.md v0.2 replaces the binary covered/partial/missing ledger status with a quality-weighted coverage model: a node is marked 'covered' only if its depth x verification x source-independence composite score exceeds a configured quality floor. Below the floor, the node stays 'partial' regardless of how many sources or claims are attached. This closes the 'breadth bought cheaply' attack: without a quality floor an operator could race to a superficially wide taxonomy of thousands of shallow depth-1 nodes, each with one low-quality source, and claim the corpus is covered. The quality floor makes 'covered' mean something defensible. This is an M1 subsystem that modifies the ledger schema (atltuae-ledger-005) and the saturation gate (atltuae-gates-007).",
+  "objective": "Implement quality-weighted coverage in the coverage ledger (packages/core/ledger) and connect it to the saturation gate (packages/core/gates): define a composite quality score = depth_score x verification_score x source_independence_score for each ledger node; configure a quality floor threshold (governance-set, parameterized); a node is marked 'covered' only if its composite score exceeds the floor — otherwise it stays 'partial'; the saturation gate's 'no open frontier nodes' condition is satisfied only by nodes above the quality floor; the per-cycle coverage ledger emits quality scores alongside status so the floor is transparent and auditable.",
+  "acceptanceCriteria": [
+    "A composite quality score (depth_score × verification_score × source_independence_score) is computed for each ledger node after each cycle; each component is documented with its operational definition and data source",
+    "A configurable quality floor threshold (governance-set, with the default value documented and rationale recorded) determines whether a node is 'covered' or 'partial'; a node with a composite score below the floor is always 'partial' regardless of raw claim or source count",
+    "The saturation gate (atltuae-gates-007) is updated to require that 'no open frontier nodes' counts only nodes above the quality floor — a 'partial' node is treated as an open frontier node for saturation purposes",
+    "The per-cycle coverage ledger emits per-node quality scores (and each component) alongside the covered/partial/missing status so the quality floor's effect is transparent and can be audited",
+    "A test confirms that a node populated with many shallow/low-quality sources stays 'partial' (quality floor not met) and does not satisfy the saturation gate, while a node with deep, verified, independent sources crosses to 'covered'",
+    "Reviewed and signed off by the gate reviewer + maintainer (recorded)"
+  ],
+  "resources": [
+    "PLAN.md",
+    "tasks/atltuae-ledger-005.json",
+    "tasks/atltuae-gates-007.json",
+    "tasks/atltuae-source-independence-028.json",
+    "tasks/atltuae-verify-008.json",
+    "packages/core/ledger",
+    "packages/core/gates"
+  ],
+  "output": "packages/core/ledger (quality-weighted status extension) + packages/core/gates (quality-floor integration)",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "outputLicense": "MIT"
+}

@@ -1,0 +1,37 @@
+{
+  "id": "atltuae-faithful-026",
+  "title": "Sampled faithfulness/entailment CI gate: cited source must actually support the claim (Galactica/ProVe failure defense)",
+  "project": "atltuae",
+  "type": "code",
+  "lane": "donated",
+  "priority": "high",
+  "domain": ["software", "verification", "ai-safety", "provenance"],
+  "riskTier": "high",
+  "urgent": false,
+  "deliverable": "pr",
+  "tokenEstimate": "medium",
+  "status": "open",
+  "context": "PLAN.md v0.2 elevates faithfulness (does the cited source actually *entail* the claim?) to a first-class, separately-reported CI gate — distinct from citation-coverage (does a citation *exist*?). The Galactica failure (fluent text with real-looking but non-supporting citations) and the Wikidata ProVe failure (references that do not support their statements) are precisely what this gate defends against. Citation presence is necessary but not sufficient; a claim whose source does not entail it is as dangerous as an unsourced claim, and must be withheld or flagged. This is a safety-critical M1 subsystem: a bypass means faithfully-cited but unfaithful claims can reach the published synthesis.",
+  "objective": "Implement a sampled faithfulness/entailment CI gate (packages/core/verify or packages/core/gates) that takes a claim + its cited source snapshot and judges whether the source *actually entails* the claim (using Anthropic Citations char-level spans as the primary signal, optionally an LLM-judge step); the gate runs in CI on a sampled set, fails the build if the entailment rate falls below the threshold (target ≥ 95% on sampled set), and reports faithfulness separately from citation-coverage so both are visible as distinct metrics.",
+  "acceptanceCriteria": [
+    "The faithfulness gate is implemented as a distinct check from the citation-coverage test; a claim can pass citation-coverage (a source exists) but fail faithfulness (the source does not entail the claim), and vice versa — both are measured and reported independently",
+    "The gate uses Anthropic Citations char-level source spans as the primary entailment signal; unfaithful claims (below the entailment threshold) are withheld from the synthesis or flagged with a faithfulness-failure note in the provenance record",
+    "The gate runs in CI on a sampled set of published claims; it fails the build if the sampled entailment rate falls below the configured threshold (default target: ≥ 95%)",
+    "A human-calibration audit loop is documented: periodically a human reviewer spot-checks gate verdicts to calibrate the threshold and detect systematic entailment failures",
+    "The faithfulness gate is included in the red-team suite (atltuae-redteam-009) as a first-class refusal: a build that surfaces an unfaithful claim without flagging it fails CI",
+    "Reviewed and signed off by the gate reviewer + provenance auditor (recorded)"
+  ],
+  "resources": [
+    "PLAN.md",
+    "tasks/atltuae-spec-000.json",
+    "tasks/atltuae-verify-008.json",
+    "tasks/atltuae-provenance-003.json",
+    "tasks/atltuae-redteam-009.json",
+    "packages/core/verify",
+    "packages/core/provenance"
+  ],
+  "output": "packages/core/verify (faithfulness/entailment gate module + CI integration)",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "outputLicense": "MIT"
+}

@@ -1,0 +1,35 @@
+{
+  "id": "atltuae-decay-030",
+  "title": "Source-decay metric + stale-claim re-verification queue: track link-rot and re-verify claims against archived snapshots",
+  "project": "atltuae",
+  "type": "code",
+  "lane": "donated",
+  "priority": "high",
+  "domain": ["software", "provenance", "reproducibility", "verification"],
+  "riskTier": "high",
+  "urgent": false,
+  "deliverable": "pr",
+  "tokenEstimate": "medium",
+  "status": "open",
+  "context": "PLAN.md v0.2 adds link-rot / source-decay defense as a first-class subsystem. Reproducibility (atltuae-repro-016) is judged against archived snapshots, not live web, but sources can still decay — URLs move/disappear, content changes — so the provenance store must track source decay over time and queue stale claims for re-verification. Without this, the published synthesis silently drifts from its own provenance chain: a claim that was faithful at ingestion may become unsupported as the live source evolves, and the archived snapshot becomes the sole remaining proof. This is a safety-critical M4 subsystem that defends provenance integrity over the life of the synthesis.",
+  "objective": "Implement a source-decay subsystem in the provenance store (packages/core/provenance): (a) a source-decay metric that periodically checks whether live sources have moved, changed content hash, or disappeared since the archived snapshot was captured, and records the decay status in the provenance record; (b) a stale-claim re-verification queue that flags claims whose sources have decayed and schedules them for re-verification against the archived snapshot; (c) a decay report included in the per-cycle coverage ledger so maintainers can see source health; and (d) a policy that reproducibility is always judged against archived snapshots, not live web, so decay does not silently invalidate provenance.",
+  "acceptanceCriteria": [
+    "A scheduled source-decay check compares live source content hashes and URL availability against the archived snapshot baseline; sources that have moved, changed content, or disappeared are flagged with a decay status (MOVED | CHANGED | GONE) recorded in the provenance record",
+    "Claims whose sources have decayed are added to a stale-claim re-verification queue; the queue is processed at each cycle start (or on a configurable schedule) and re-verifies claims against the archived snapshot — not the live source — before they can remain in the published synthesis",
+    "A per-cycle source-decay report is included in the coverage ledger output, showing: total sources tracked, sources flagged (by decay status), claims affected, and claims re-verified or withheld due to decay",
+    "Reproducibility tooling (atltuae-repro-016) is updated to explicitly judge re-derivation against the archived snapshot baseline, and the decay metric feeds the reproducibility report so link-rot's effect on re-derivation rate is visible",
+    "A test confirms that a decayed source (simulated content-hash change and URL removal) correctly triggers decay flagging, claim queuing, and re-verification against the snapshot; a claim backed only by a GONE source that has no snapshot is withheld from the synthesis",
+    "Reviewed and signed off by the provenance auditor + maintainer (recorded)"
+  ],
+  "resources": [
+    "PLAN.md",
+    "tasks/atltuae-provenance-003.json",
+    "tasks/atltuae-repro-016.json",
+    "tasks/atltuae-verify-008.json",
+    "packages/core/provenance"
+  ],
+  "output": "packages/core/provenance (source-decay metric + stale-claim re-verification queue modules)",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "outputLicense": "MIT"
+}

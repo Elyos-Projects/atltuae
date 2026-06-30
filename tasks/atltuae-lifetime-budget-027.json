@@ -1,0 +1,35 @@
+{
+  "id": "atltuae-lifetime-budget-027",
+  "title": "Aggregate/lifetime budget ceiling + marginal-coverage-per-dollar tripwire (continue/narrow/mothball decision gate)",
+  "project": "atltuae",
+  "type": "code",
+  "lane": "donated",
+  "priority": "high",
+  "domain": ["software", "budget", "ai-safety", "governance"],
+  "riskTier": "high",
+  "urgent": false,
+  "deliverable": "pr",
+  "tokenEstimate": "medium",
+  "status": "open",
+  "context": "PLAN.md v0.2 adds two controls beyond the per-cycle budget caps (atltuae-budget-004): (1) a governance-owned aggregate/lifetime budget ceiling that prevents a perpetual cadence of individually-in-cap cycles from spending unbounded total dollars while coverage growth asymptotes; and (2) a marginal-coverage-per-dollar tripwire that fires a mandatory continue/narrow/mothball decision when new spend stops buying meaningful new quality-weighted coverage. These are cost-driven complements to the partner-driven 2027 mothball rule. Without them, the engine could run indefinitely within per-cycle caps, spending real money for diminishing return. This is a safety-critical M2 subsystem; a bypass means the aggregate spend control is absent.",
+  "objective": "Extend the budget governor (packages/core/budget) with: (a) a governance-owned aggregate/lifetime budget ceiling, enforced server-side so no cycle can be approved past it without an explicit between-cycle governance override recorded in the audit log; and (b) a marginal-coverage-per-dollar tripwire that computes new quality-weighted coverage delta per dollar spent across cycles and fires a halting decision (continue/narrow/mothball) when the delta falls below a configured threshold — surfacing this decision to the human checkpoint rather than allowing silent continuation.",
+  "acceptanceCriteria": [
+    "A governance-owned aggregate/lifetime budget ceiling is stored server-side and checked before each new cycle starts; a cycle that would exceed the ceiling is blocked until a governance-logged between-cycle override raises the ceiling — there is no in-cycle path to exceed it",
+    "The lifetime cost ledger records aggregate spend vs. ceiling after each cycle and includes the remaining headroom in the human-checkpoint summary presented to the approver",
+    "A marginal-coverage-per-dollar tripwire computes quality-weighted coverage delta divided by cycle cost across a rolling window; when this ratio falls below a configured threshold it fires a mandatory continue/narrow/mothball decision at the checkpoint — the human must choose one; silent continuation past the tripwire is not permitted",
+    "The mothball/pivot choice is recorded in governance with the final aggregate spend and coverage state; the synthesis-to-date and cost ledger are published as a final-state artifact on mothball",
+    "A test proves the ceiling blocks cycles once exceeded and the tripwire fires when the marginal ratio collapses; both are included in the red-team suite (atltuae-redteam-009) as budget-bypass regression cases",
+    "Reviewed and signed off by the gate reviewer + maintainer (recorded)"
+  ],
+  "resources": [
+    "PLAN.md",
+    "tasks/atltuae-budget-004.json",
+    "tasks/atltuae-checkpoint-011.json",
+    "tasks/atltuae-cost-017.json",
+    "packages/core/budget"
+  ],
+  "output": "packages/core/budget (aggregate ceiling + marginal-coverage tripwire extensions)",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "outputLicense": "MIT"
+}

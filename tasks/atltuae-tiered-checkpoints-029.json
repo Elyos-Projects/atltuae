@@ -1,0 +1,36 @@
+{
+  "id": "atltuae-tiered-checkpoints-029",
+  "title": "Tiered human-checkpoint workflow: batched lightweight approval for low-risk breadth vs. full review for high-risk routing, self-improvement, and budget changes",
+  "project": "atltuae",
+  "type": "code",
+  "lane": "donated",
+  "priority": "high",
+  "domain": ["software", "ai-safety", "human-in-the-loop", "governance"],
+  "riskTier": "high",
+  "urgent": false,
+  "deliverable": "pr",
+  "tokenEstimate": "medium",
+  "status": "open",
+  "context": "PLAN.md v0.2 upgrades the human-checkpoint model (atltuae-checkpoint-011) from a single-mode approve/modify/halt workflow to a tiered model. At 'all domains' scale, requiring full human review for every low-risk breadth expansion creates a bottleneck and a fatigued rubber-stamp risk — silently voiding the safety property. The fix is tiered checkpoints: low-risk breadth expansion can be batch-approved lightweight (a human reviews a digest of the bundle, not each item individually); full human review is reserved for high-risk domain routing decisions, self-improvement diffs, and budget/ceiling changes. Tiering reduces human load without weakening the gate where it matters. This is a safety-critical M2 component: a tier misclassification that routes a high-risk decision to the lightweight path would degrade the human gate.",
+  "objective": "Extend the human-checkpoint workflow (packages/core/checkpoint) with a tiering system: (a) a classifier that assigns each pending checkpoint decision to either LIGHTWEIGHT (low-risk breadth expansion bundles eligible for batched approval) or FULL-REVIEW (high-risk routing decisions, self-improvement diffs, budget/ceiling change proposals, flag escalations from the domain-risk router); (b) a batched-approval interface for LIGHTWEIGHT decisions that presents a digest of the bundle and records a single logged batch-approval; (c) a full-review interface for FULL-REVIEW decisions that requires item-by-item human action with full cycle diff, coverage delta, cost summary, and explicit approval/rejection logged per item.",
+  "acceptanceCriteria": [
+    "A decision classifier assigns each checkpoint item to LIGHTWEIGHT or FULL-REVIEW; the classifier is documented with explicit criteria and the mapping is logged so it can be audited for tier misclassifications",
+    "High-risk routing decisions (domain-risk router flags), self-improvement diffs, and budget/ceiling change proposals are always classified FULL-REVIEW and cannot be batch-approved; a test proves they cannot be routed to the lightweight path",
+    "LIGHTWEIGHT bundles are presented as a digest (node list + coverage delta + cost) and require a single explicit, logged batch-approval; no auto-advance — the approval must be a human action",
+    "FULL-REVIEW items are presented individually with full cycle diff, coverage delta, cost summary; each is approved or rejected with a recorded log entry",
+    "Human-effort-per-cycle is tracked and reported in the checkpoint summary so maintainers can detect when the tier distribution is drifting (too many FULL-REVIEW items → checkpoint bottleneck; LIGHTWEIGHT approvals accelerating without review → rubber-stamp risk)",
+    "Reviewed and signed off by the maintainer + gate reviewer (recorded)"
+  ],
+  "resources": [
+    "PLAN.md",
+    "tasks/atltuae-checkpoint-011.json",
+    "tasks/atltuae-improve-012.json",
+    "tasks/atltuae-lifetime-budget-027.json",
+    "tasks/atltuae-risk-013.json",
+    "packages/core/checkpoint"
+  ],
+  "output": "packages/core/checkpoint (tiered-checkpoint extension: classifier + batched-approval + full-review interfaces)",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "outputLicense": "MIT"
+}

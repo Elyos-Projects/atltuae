@@ -1,0 +1,36 @@
+{
+  "id": "atltuae-recall-floor-032",
+  "title": "Search-recall / source-diversity floor for the saturation gate: 'no new sources' counts only after minimum query diversity and source classes are cleared",
+  "project": "atltuae",
+  "type": "code",
+  "lane": "donated",
+  "priority": "high",
+  "domain": ["software", "ai-safety", "verification", "knowledge-commons"],
+  "riskTier": "high",
+  "urgent": false,
+  "deliverable": "pr",
+  "tokenEstimate": "medium",
+  "status": "open",
+  "context": "PLAN.md v0.2 identifies a critical flaw in the v0.1 saturation gate: 'no new sources across K consecutive cycles' is gameable if the search was narrow. A node that was queried with a single keyword against a single source class could legitimately report 'no new sources' while vast relevant material remains untouched — yielding false saturation. The fix is a search-recall / source-diversity floor: before 'no new sources' can count toward saturation, the gate must verify that the node was searched with a minimum diversity of query strategies (keyword variants, semantic queries, citation-graph traversal) and source classes (open-access repositories, reference corpora, preprint servers, etc.). Only after this floor is cleared does 'no new sources across K cycles' mean 'we looked hard, not just narrowly.' This is a first-class update to the saturation gate (atltuae-gates-007).",
+  "objective": "Implement a search-recall / source-diversity floor as a prerequisite for the 'no new sources' saturation signal in the saturation gate (packages/core/gates): define a minimum diversity requirement per node (number of distinct query strategies, query types, and source classes that must be attempted); track per-node search diversity in the provenance record; block the 'no new sources' saturation signal for any node that has not yet cleared the recall floor; report the floor status per node in the coverage ledger so gaps in search diversity are transparent.",
+  "acceptanceCriteria": [
+    "A per-node search-recall floor is defined with: (a) a minimum number of distinct query strategies (e.g., keyword variants, semantic queries, citation-graph traversal), (b) a minimum number of distinct source classes attempted (e.g., open-access repositories, government/PD corpora, reference corpora, preprint archives), and (c) citation-graph traversal as a required component; the floor parameters are governance-set and documented",
+    "The provenance record for each node tracks which query strategies and source classes have been attempted; the saturation gate checks this record and blocks the 'no new sources' signal for any node that has not cleared the recall floor — the signal is reported as FLOOR_NOT_MET rather than SATURATED",
+    "The coverage ledger per-node entry emits the recall-floor status (CLEARED or FLOOR_NOT_MET with details of which strategies/classes are still missing) so gaps in search diversity are visible to maintainers and the expansion planner",
+    "The expansion planner (atltuae-planner-010) is informed of FLOOR_NOT_MET nodes and can propose additional search strategies/source classes as next-cycle targets",
+    "A test confirms that a node queried with only a single narrow strategy reports FLOOR_NOT_MET and cannot be declared saturated even if no new sources were found in K cycles, while a node that has cleared all floor requirements correctly progresses to saturation evaluation",
+    "Reviewed and signed off by the gate reviewer + maintainer (recorded)"
+  ],
+  "resources": [
+    "PLAN.md",
+    "tasks/atltuae-gates-007.json",
+    "tasks/atltuae-provenance-003.json",
+    "tasks/atltuae-planner-010.json",
+    "packages/core/gates",
+    "packages/core/provenance"
+  ],
+  "output": "packages/core/gates (search-recall / source-diversity floor prerequisite for saturation signal)",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "outputLicense": "MIT"
+}

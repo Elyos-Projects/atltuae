@@ -1,0 +1,37 @@
+{
+  "id": "atltuae-graphrag-033",
+  "title": "GraphRAG-style community summarization: answer whole-corpus breadth questions without re-reading the full corpus each cycle",
+  "project": "atltuae",
+  "type": "code",
+  "lane": "donated",
+  "priority": "medium",
+  "domain": ["software", "knowledge-commons", "research", "ai-safety"],
+  "riskTier": "medium",
+  "urgent": false,
+  "deliverable": "pr",
+  "tokenEstimate": "large",
+  "status": "open",
+  "context": "PLAN.md v0.2 adds GraphRAG-style community summarization to the M2 expansion milestone as a cost-discipline technique: as the claim graph and source corpus grow across cycles, answering 'what does the corpus say about topic X?' naively requires re-reading the entire corpus each cycle — an O(N) cost that scales badly. Microsoft GraphRAG's entity/community-summary graph technique pre-computes hierarchical summaries of entity communities so whole-corpus breadth questions can be answered by traversing the summary graph rather than re-reading raw sources. In ATLTUAE this is adopted as a technique to adopt (not a product competitor), applied to the claim graph and taxonomy to let the expansion planner and synthesis layer answer cross-domain breadth questions efficiently. Critically, community summaries must themselves be provenance-stamped and subject to the same faithfulness/verification gates as first-order claims.",
+  "objective": "Implement GraphRAG-style community summarization over the claim graph and domain taxonomy (packages/core/planner or packages/core/cycle): build a pre-computed, versioned community-summary graph that clusters related claims/nodes by entity/topic community, generates community summaries (with provenance lineage from their constituent claims), and makes these summaries available to the expansion planner for whole-corpus breadth questions and to the synthesis layer for cross-domain synthesis — without re-reading the full raw corpus on each query; community summaries are updated incrementally each cycle (not rebuilt from scratch) and are subject to the same citation-coverage and faithfulness gates as first-order claims.",
+  "acceptanceCriteria": [
+    "A community-summary graph is built over the claim graph and taxonomy, clustering claims/nodes by entity/topic community using a defined algorithm (e.g., Leiden or Louvain over the claim-entity co-occurrence graph); the clustering is versioned and updated incrementally each cycle as new claims are added",
+    "Each community summary is a generated artifact that: (a) records its constituent claims with full provenance lineage, (b) passes the citation-coverage gate (the summary can be traced to its source claims), and (c) passes the faithfulness gate (the summary does not assert anything not entailed by its constituent claims); community summaries that fail these gates are withheld",
+    "The expansion planner (atltuae-planner-010) can query the community-summary graph to identify breadth gaps across communities without re-reading raw sources; query latency and cost are materially lower than full-corpus re-read (measured and reported)",
+    "The synthesis layer (atltuae-synthesis-018) can use community summaries for cross-domain synthesis sections, with provenance lineage preserved so readers can trace a synthesis claim back through the community summary to its constituent first-order claims and sources",
+    "An incremental update test confirms that adding N new claims in a cycle updates only the affected community summaries (not a full rebuild) and that summary provenance is correctly updated",
+    "Reviewed and signed off by the maintainer + gate reviewer (recorded)"
+  ],
+  "resources": [
+    "PLAN.md",
+    "tasks/atltuae-planner-010.json",
+    "tasks/atltuae-synthesis-018.json",
+    "tasks/atltuae-provenance-003.json",
+    "tasks/atltuae-faithful-026.json",
+    "tasks/atltuae-verify-008.json",
+    "packages/core/planner"
+  ],
+  "output": "packages/core/planner (community-summary graph builder + incremental updater + query interface)",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "outputLicense": "MIT"
+}

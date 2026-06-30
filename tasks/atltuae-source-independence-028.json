@@ -1,0 +1,36 @@
+{
+  "id": "atltuae-source-independence-028",
+  "title": "Source-independence scoring: prevent multi-sourcing from being satisfied by correlated, echoed, or LLM-near-duplicate sources",
+  "project": "atltuae",
+  "type": "code",
+  "lane": "donated",
+  "priority": "high",
+  "domain": ["software", "verification", "ai-safety", "provenance"],
+  "riskTier": "high",
+  "urgent": false,
+  "deliverable": "pr",
+  "tokenEstimate": "medium",
+  "status": "open",
+  "context": "PLAN.md v0.2 adds source-independence scoring as a first-class component of the verification layer. Multi-sourcing is defeated by correlated sources: if every source on a high-stakes claim is downstream of a single wrong primary, or if sources are LLM-generated echo-chamber near-duplicates, then 'three independent sources' gives false confidence. This is a recognized failure mode (citation cartels, SEO-spam, LLM content farms). ATLTUAE must detect shared-primary / echoed / LLM-generated near-duplicates so that a 'multi-sourced' claim cannot be satisfied by N copies of one claim. Source-independence scoring is also the backbone of quality-weighted coverage (atltuae-quality-coverage-031): a node's coverage quality degrades if its sources are correlated.",
+  "objective": "Implement source-independence scoring in the verification layer (packages/core/verify): for each claim or node, compute a source-independence score that detects correlated sources (shared citation graph ancestry), echoed content (near-duplicate text after normalization), and LLM-generated near-duplicates (embedding-distance clustering); a high-stakes claim that relies on sources that fail the independence threshold is flagged and cannot count as 'multi-sourced' for the multi-source requirement; the independence score is stored in the provenance record and feeds the quality-weighted coverage computation.",
+  "acceptanceCriteria": [
+    "Source-independence scoring detects at minimum: (a) citation-graph correlation (sources that share a common primary via traversal); (b) text-level near-duplicates (high overlap after normalization, targeting SEO-spam / mirrored content); (c) embedding-distance clustering (LLM-generated content farms where semantically identical claims appear across nominally different sources)",
+    "A high-stakes claim whose supporting sources all fall below the independence threshold is blocked from being counted as satisfying the multi-source requirement; the independence failure is recorded in the provenance record and surfaced in the verification report",
+    "The independence score for each source set is stored in the provenance record and emitted to the coverage ledger so that coverage metrics can be quality-weighted by source independence (feeds atltuae-quality-coverage-031)",
+    "A dedup/novelty test confirms that citation-cartel / near-duplicate source sets correctly score low and do not inflate the apparent multi-source count",
+    "Source-independence scoring is integrated into the verification layer (atltuae-verify-008) and covered by the red-team suite (atltuae-redteam-009)",
+    "Reviewed and signed off by the gate reviewer (recorded)"
+  ],
+  "resources": [
+    "PLAN.md",
+    "tasks/atltuae-verify-008.json",
+    "tasks/atltuae-provenance-003.json",
+    "tasks/atltuae-quality-coverage-031.json",
+    "packages/core/verify",
+    "packages/core/provenance"
+  ],
+  "output": "packages/core/verify (source-independence scorer module)",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "outputLicense": "MIT"
+}
